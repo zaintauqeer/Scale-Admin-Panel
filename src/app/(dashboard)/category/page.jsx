@@ -138,7 +138,7 @@ const CategoryTable = () => {
                       onClick={() => {
                         setSelectedUnitId(unit._id);
                         setShowRemoveModal(true);
-                      }}
+                      }} 
                     >
                       <img src="/delete.svg" alt="delete" className="w-4 h-4" />
                     </button>
