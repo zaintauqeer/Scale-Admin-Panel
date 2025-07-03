@@ -41,7 +41,7 @@ export default function DashboardLayout({ children }) {
         </div> */}
 
         {/* Scrollable Content (with optional navbar margin) */}
-        <main className="h-screen overflow-y-auto p-6 bg-gray-100">
+        <main className="h-screen overflow-y-auto p-6 bg-gray-200">
           {children}
         </main>
       </div>
