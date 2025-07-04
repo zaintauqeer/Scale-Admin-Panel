@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect,useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -25,7 +25,7 @@ export default function Login() {
         },
         body: JSON.stringify({ identifier, password }),
       });
-      
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Login failed");
       if (data.token) localStorage.setItem("authToken", data.token);
@@ -36,6 +36,14 @@ export default function Login() {
       setLoading(false);
     }
   };
+/////////
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    if (token) {
+      router.push("/deals"); // Already logged in, go to dashboard
+    }
+  }, []);
+  
 
   const togglePasswordVisibility = () => setShowPassword((p) => !p);
 

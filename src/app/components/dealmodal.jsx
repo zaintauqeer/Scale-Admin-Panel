@@ -1,8 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect,useRef, useState } from "react";
 
 const CreateDealModal = ({ closeModal }) => {
   const fileFeatureRef = useRef(); // feature image
   const fileImagesRef = useRef(); // additional images
+  const modalRef = useRef();
 
   /* ---------- state ---------- */
   const [imagePreview, setImagePreview] = useState(null); // preview for featureImage
@@ -127,13 +128,27 @@ const CreateDealModal = ({ closeModal }) => {
     }
   };
 
+  // Close modal on outside click
+useEffect(() => {
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      closeModal();
+    }
+  };
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
+
+
   /*  ====== JSX ======  */
   return (
     <div
       className="fixed inset-0 flex justify-center items-center z-50 px-4"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
     >
-      <div className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm">
+      <div className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm"   ref={modalRef}>
         <h2 className="text-xl mb-4 font-[600] border-b border-b-gray-300 px-3 py-2">
           Create Deal
         </h2>

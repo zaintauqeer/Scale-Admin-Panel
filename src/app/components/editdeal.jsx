@@ -5,38 +5,39 @@ import React, { useRef, useState, useEffect } from "react";
 const EditDealComponent = ({ deal, onClose, onUpdate }) => {
   /* ---------- refs ---------- */
   const fileFeatureRef = useRef();
-  const fileImagesRef  = useRef();
+  const fileImagesRef = useRef();
 
   /* ---------- state ---------- */
-  const [imagePreview,  setImagePreview]  = useState(null);       // preview for feature image
-  const [featureImage,  setFeatureImage]  = useState(null);       // File | URL | null
-  const [images,       setImages]        = useState([]);         // array of File | URL (strings)
+  const [imagePreview, setImagePreview] = useState(null); // preview for feature image
+  const [featureImage, setFeatureImage] = useState(null); // File | URL | null
+  const [images, setImages] = useState([]); // array of File | URL (strings)
 
-  const [title,            setTitle]            = useState("");
-  const [marketPrice,      setMarketPrice]      = useState("");
-  const [pricePerUnit,     setPricePerUnit]     = useState("");
-  const [minOrderQty,      setMinOrderQty]      = useState("");
-  const [quantityOrder,    setQuantityOrder]    = useState("");
-  const [minBuyers,        setMinBuyers]        = useState("");
+  const [title, setTitle] = useState("");
+  const [marketPrice, setMarketPrice] = useState("");
+  const [pricePerUnit, setPricePerUnit] = useState("");
+  const [minOrderQty, setMinOrderQty] = useState("");
+  const [quantityOrder, setQuantityOrder] = useState("");
+  const [minBuyers, setMinBuyers] = useState("");
 
-  const [supplierEn,       setSupplierEn]       = useState("");
-  const [supplierAr,       setSupplierAr]       = useState("");
-  const [paymentEn,        setPaymentEn]        = useState("");
-  const [paymentAr,        setPaymentAr]        = useState("");
-  const [deliveryWindow,   setDeliveryWindow]   = useState("");
-  const [deliveryArea,     setDeliveryArea]     = useState("");
-  const [startDate,        setStartDate]        = useState("");
-  const [endDate,          setEndDate]          = useState("");
+  const [supplierEn, setSupplierEn] = useState("");
+  const [supplierAr, setSupplierAr] = useState("");
+  const [paymentEn, setPaymentEn] = useState("");
+  const [paymentAr, setPaymentAr] = useState("");
+  const [deliveryWindow, setDeliveryWindow] = useState("");
+  const [deliveryArea, setDeliveryArea] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
-  const [descriptionEn,    setDescriptionEn]    = useState("");
-  const [descriptionAr,    setDescriptionAr]    = useState("");
-  const [terms,            setTerms]            = useState("");
-  const [notes,            setNotes]            = useState("");
-  const [whatsappEn,       setWhatsappEn]       = useState("");
-  const [whatsappAr,       setWhatsappAr]       = useState("");
-  const [prefillEn,        setPrefillEn]        = useState("");
-  const [prefillAr,        setPrefillAr]        = useState("");
+  const [descriptionEn, setDescriptionEn] = useState("");
+  const [descriptionAr, setDescriptionAr] = useState("");
+  const [terms, setTerms] = useState("");
+  const [notes, setNotes] = useState("");
+  const [whatsappEn, setWhatsappEn] = useState("");
+  const [whatsappAr, setWhatsappAr] = useState("");
+  const [prefillEn, setPrefillEn] = useState("");
+  const [prefillAr, setPrefillAr] = useState("");
 
+  const modalRef = useRef();
   /* ---------- populate initial data ---------- */
   useEffect(() => {
     if (!deal) return;
@@ -75,7 +76,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
 
   /* ---------- handlers ---------- */
   const triggerFeatureInput = () => fileFeatureRef.current?.click();
-  const triggerImagesInput  = () => fileImagesRef.current?.click();
+  const triggerImagesInput = () => fileImagesRef.current?.click();
 
   const handleFeatureChange = (e) => {
     const file = e.target.files[0];
@@ -135,7 +136,8 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       formData.append("deliveryArea", deliveryArea);
 
       // feature image: only if user selected a new File
-      if (featureImage instanceof File) formData.append("featureImage", featureImage);
+      if (featureImage instanceof File)
+        formData.append("featureImage", featureImage);
       // indicate if feature image was removed
       if (!featureImage) formData.append("removeFeatureImage", "true");
 
@@ -147,12 +149,14 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       const keptImageUrls = images.filter((img) => typeof img === "string");
       formData.append("existingImages", JSON.stringify(keptImageUrls));
 
-      const res = await fetch(`https://scale-gold.vercel.app/api/items/Updateitems/${deal._id}`,
+      const res = await fetch(
+        `https://scale-gold.vercel.app/api/items/Updateitems/${deal._id}`,
         {
           method: "PUT",
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
-        });
+        }
+      );
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data.message || `Error ${res.status}`);
@@ -165,31 +169,73 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
     }
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        onClose(); // ✅ call the correct prop function
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   /* ---------- JSX ---------- */
   return (
-    <div className="fixed inset-0 flex justify-center items-center z-50 px-4" style={{ backgroundColor: "rgba(0,0,0,0.8)" }}>
-      <div className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm">
-        <h2 className="text-xl mb-4 font-semibold border-b border-gray-300 px-3 py-2">Edit Deal</h2>
+    <div
+      className="fixed inset-0 flex justify-center items-center z-50 px-4"
+      style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
+    >
+      <div
+        className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm"
+        ref={modalRef}
+      >
+        <h2 className="text-xl mb-4 font-semibold border-b border-gray-300 px-3 py-2">
+          Edit Deal
+        </h2>
 
         <div className="bg-white m-4 p-4 border border-gray-300 rounded-sm relative">
           {/* ---------- Feature Image ---------- */}
           <div className="flex items-center gap-4 mb-2 justify-center">
             {/* preview */}
             {imagePreview && (
-                <div className="relative w-28 h-28 border-2 border-gray-300 rounded flex items-center justify-center overflow-hidden">
-              <div className="relative w-24 h-24 bg-gray-1s00 rounded flex items-center justify-center overflow-hidden"    style={{ boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)" }}>
-                <img src={imagePreview} alt="preview" className="object-contain w-20 h-20" />
-                <button type="button" onClick={handleRemoveFeature} className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center">×</button>
-              </div>
+              <div className="relative w-28 h-28 border-2 border-gray-300 rounded flex items-center justify-center overflow-hidden">
+                <div
+                  className="relative w-24 h-24 bg-gray-1s00 rounded flex items-center justify-center overflow-hidden"
+                  style={{ boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)" }}
+                >
+                  <img
+                    src={imagePreview}
+                    alt="preview"
+                    className="object-contain w-20 h-20"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleRemoveFeature}
+                    className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center"
+                  >
+                    ×
+                  </button>
+                </div>
               </div>
             )}
             {/* upload */}
-            <div onClick={triggerFeatureInput} className="w-28 h-28 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-gray-400">
+            <div
+              onClick={triggerFeatureInput}
+              className="w-28 h-28 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-gray-400"
+            >
               <div className="text-center select-none">
                 <div className="text-xl font-semibold">+</div>
                 <div className="text-sm">Upload</div>
               </div>
-              <input type="file" accept="image/*" ref={fileFeatureRef} onChange={handleFeatureChange} className="hidden" />
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileFeatureRef}
+                onChange={handleFeatureChange}
+                className="hidden"
+              />
             </div>
           </div>
 
@@ -197,15 +243,41 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           <div className="mb-4">
             <div className="flex flex-wrap gap-2 justify-center">
               {images.map((img, idx) => (
-                <div key={idx} className="relative w-10 h-10 border border-gray-300 rounded overflow-hidden" style={{ boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)" }} > 
-                  <img src={typeof img === "string" ? img : URL.createObjectURL(img)} alt={`img-${idx}`} className="object-contain flex items-center justify-center w-8 h-8" />
-                  <button type="button" onClick={() => removeImage(idx)} className="absolute -top-0 -right-0 bg-red-600 text-white rounded-full w-3 h-3 text-xs flex items-center justify-center">×</button>
+                <div
+                  key={idx}
+                  className="relative w-10 h-10 border border-gray-300 rounded overflow-hidden"
+                  style={{ boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)" }}
+                >
+                  <img
+                    src={
+                      typeof img === "string" ? img : URL.createObjectURL(img)
+                    }
+                    alt={`img-${idx}`}
+                    className="object-contain flex items-center justify-center w-8 h-8"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removeImage(idx)}
+                    className="absolute -top-0 -right-0 bg-red-600 text-white rounded-full w-3 h-3 text-xs flex items-center justify-center"
+                  >
+                    ×
+                  </button>
                 </div>
               ))}
               {/* add more */}
-              <div onClick={triggerImagesInput} className="w-10 h-10 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-gray-400">
+              <div
+                onClick={triggerImagesInput}
+                className="w-10 h-10 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-gray-400"
+              >
                 <span className="text-xl select-none">+</span>
-                <input type="file" multiple accept="image/*" ref={fileImagesRef} onChange={handleImagesChange} className="hidden" />
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  ref={fileImagesRef}
+                  onChange={handleImagesChange}
+                  className="hidden"
+                />
               </div>
             </div>
           </div>
@@ -484,13 +556,18 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           </div>
 
           {/* ------------ action buttons ------------ */}
-         
         </div>
         <div className="flex justify-end gap-3 px-4 py-4">
-          <button onClick={onClose} className="px-4 py-2 border border-gray-400 rounded text-[16px]">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 border border-gray-400 rounded text-[16px]"
+          >
             Cancel
           </button>
-          <button onClick={handleSubmit} className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px]">
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px]"
+          >
             Update Deal
           </button>
         </div>
