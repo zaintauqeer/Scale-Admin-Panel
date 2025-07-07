@@ -34,7 +34,7 @@ const DetailDealBox = ({
   return (
     <div className="lg:px-1 px-5 py-6">
       <div className="flex mb-6">
-        <h2 className="text-xl font-medium">Deal Details</h2>
+        <h2 className="text-xl font-medium text-black">Deal Details</h2>
       </div>
       {/* -- Two-column layout: Images + Info -- */}
       <div className="flex flex-col lg:flex-row gap-x-10">
@@ -70,7 +70,7 @@ const DetailDealBox = ({
         <div className="gap-5 lg:w-6/12">
           {/* Title & price */}
           <div className="flex justify-between items-center pb-5 border-b border-[#DDDDDD]">
-            <h2 className="text-2xl lg:text-[32px] font-bold">{title}</h2>
+            <h2 className="text-2xl lg:text-[32px] font-bold text-black">{title}</h2>
             <span className="flex items-center gap-2 text-xl font-semibold text-[#F05526] whitespace-nowrap">
               <img src="/Clock.svg" alt="clock" className="w-5 h-5" />
               {timeLeft}
@@ -104,12 +104,15 @@ const DetailDealBox = ({
 
       {/* -- Terms & Actions section below all content -- */}
       <div className="mt-10">
-        <div className="text-xl text-[#666666]">{termsAndNotes}</div>
+        <div className="flex flex-col text-xl font-medium text-[#666666] ">
+          <label htmlFor="" className="text-black text-2xl">Notes</label>
+          <span className="text-xl">{termsAndNotes}</span>
+          </div>
 
         <div className="flex gap-4 mt-12 justify-center items-center">
           <button
             onClick={() => setShowCloseModal(true)}
-            className="w-70 border-2 border-gray-200 px-6 py-3 text-[16px] rounded font-semibold"
+            className="w-70 border-2 border-gray-200 px-6 py-3 text-[16px] rounded font-semibold text-black"
           >
             Close Deal
           </button>

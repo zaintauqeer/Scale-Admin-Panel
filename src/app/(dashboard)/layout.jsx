@@ -34,7 +34,7 @@ export default function DashboardLayout({ children }) {
       </div>
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col ml-64 w-[calc(100%-16rem)]">
+      <div className="flex-1 flex flex-col ml-64 w-[calc(100%-16rem)] bg-white">
         {/* Optional Fixed Top Navbar (uncomment if you have one) */}
         {/* <div className="fixed top-0 left-64 right-0 h-16 bg-white z-30 shadow-md">
           <Navbar />

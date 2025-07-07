@@ -112,7 +112,7 @@ const Page = () => {
     <ProtectedRoute>
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-semibold">Manage Deals</h3>
+        <h3 className="text-xl font-medium text-black">Manage Deals</h3>
         <button
           onClick={() => setShowModal(true)}
           className="bg-[#f15525] px-4 py-2 text-[16px] rounded-sm text-white"
@@ -147,9 +147,9 @@ const Page = () => {
         </div>
       </div>
 
-      <div className="border-1 border-gray-300 p-3 mt-4 rounded-sm">
+      <div className="border-1 border-[#DDDDDD] p-3 mt-4 rounded-sm">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-[16px] font-semibold">Active Deals</h3>
+          <h3 className="text-[16px] font-semibold text-black">Active Deals</h3>
 
           <div className="relative w-[436px]">
             <input
@@ -157,18 +157,18 @@ const Page = () => {
               placeholder="Search here"
               value={searchActive}
               onChange={(e) => setSearchActive(e.target.value)}
-              className="border border-gray-300 placeholder-gray-400 p-2 rounded-sm w-full text-sm pr-10"
+              className="border border-[#DDDDDD] placeholder-gray-400 p-2 rounded-sm w-full text-sm pr-10"
             />
 
             <img
               src="/Search icon.svg"
               alt="search icon"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-500"
             />
           </div>
 
           <div className="relative">
-            <select className="block w-full px-4 py-2 pr-8 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
+            <select className="block w-full px-4 py-2 pr-8 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-[#DDDDDD]">
               <option value="">This Week</option>
               <option value="last-week">Last Week</option>
               <option value="this-month">This Month</option>
@@ -181,14 +181,14 @@ const Page = () => {
           </div>
         </div>
 
-        <table className="w-full text-left border border-gray-300 relative text-[#444444]">
+        <table className="w-full text-left border border-[#DDDDDD] relative text-[#444444]">
           <thead>
             <tr className="border-b border-gray-200">
-              <th className="py-2 px-3 font-semibold text-sm">Products</th>
-              <th className="py-2 px-2 font-semibold text-sm">Supplier</th>
-              <th className="py-2 px-3 font-semibold text-sm">Buyers Joined</th>
-              <th className="py-2 px-3 font-semibold text-sm">Time Left</th>
-              <th className="py-2 px-3 font-semibold text-sm">Action</th>
+              <th className="py-2 px-3 font-medium text-sm">Products</th>
+              <th className="py-2 px-2 font-medium text-sm">Supplier</th>
+              <th className="py-2 px-3 font-medium text-sm">Buyers Joined</th>
+              <th className="py-2 px-3 font-medium text-sm">Time Left</th>
+              <th className="py-2 px-3 font-medium text-sm">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -254,16 +254,16 @@ const Page = () => {
                   {activeMenuId === deal._id && (
                     <div
                       ref={(el) => (activeMenuRefs.current[deal._id] = el)}
-                      className="absolute right-16 top-8 bg-white border border-gray-300 rounded-md shadow-md z-10 w-32"
+                      className="absolute right-14 top-12 bg-white border border-[#DDDDDD] rounded-sm  z-10 w-32"
                     >
                       <button
-                        className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:bg-gray-100"
+                        className="block w-full px-4 py-2 text-left text-sm text-[#666666] hover:bg-gray-100 border-b border-[#DDDDDD] hover:rounded-l-sm hover:rounded-r-sm "
                         onClick={() => handleEdit(deal._id)}
                       >
                         Edit Deal
                       </button>
                       <button
-                        className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:bg-gray-100"
+                        className="block w-full px-4 py-2 text-left text-sm text-[#666666] hover:bg-gray-100 "
                         onClick={() => {
                           setSelectedDealId(deal._id);
                           setShowCloseModal(true);
@@ -282,9 +282,9 @@ const Page = () => {
       </div>
 
       {/* second table - Total Deals */}
-      <div className="border-1 border-gray-300 p-3 mt-4 rounded-sm">
+      <div className="border-1 border-[#DDDDDD] p-3 mt-4 rounded-sm">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-[16px] font-semibold">Total Deals</h3>
+          <h3 className="text-[16px] font-semibold text-black">Total Deals</h3>
 
           <div className="relative w-[436px]">
             <input
@@ -292,18 +292,18 @@ const Page = () => {
               placeholder="Search here"
               value={searchTotal}
               onChange={(e) => setSearchTotal(e.target.value)}
-              className="border border-gray-300 placeholder-gray-400 p-2 rounded-sm w-full text-sm pr-10"
+              className="border border-[#DDDDDD] placeholder-gray-400 p-2 rounded-sm w-full text-sm pr-10"
             />
 
             <img
               src="/Search icon.svg"
               alt="search icon"
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 h-6 w-6 text-gray-400"
             />
           </div>
 
           <div className="relative">
-            <select className="block w-full px-4 py-2 pr-8 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
+            <select className="block w-full px-4 py-2 pr-8 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-[#DDDDDD]">
               <option value="">This Week</option>
               <option value="last-week">Last Week</option>
               <option value="this-month">This Month</option>
@@ -316,14 +316,14 @@ const Page = () => {
           </div>
         </div>
 
-        <table className="w-full text-left border border-gray-300 text-[#444444]">
+        <table className="w-full text-left border border-[#DDDDDD] text-[#444444]">
           <thead>
             <tr className="border-b border-gray-200">
-              <th className="py-2 px-3 font-semibold text-sm">Deals</th>
-              <th className="py-2 px-3 font-semibold text-sm">Supplier</th>
-              <th className="py-2 px-3 font-semibold text-sm">Buyers Joined</th>
-              <th className="py-2 px-3 font-semibold text-sm">Status</th>
-              <th className="py-2 px-3 font-semibold text-sm">Action</th>
+              <th className="py-2 px-3 font-medium text-sm">Deals</th>
+              <th className="py-2 px-3 font-medium text-sm">Supplier</th>
+              <th className="py-2 px-3 font-medium text-sm">Buyers Joined</th>
+              <th className="py-2 px-3 font-medium text-sm">Status</th>
+              <th className="py-2 px-3 font-medium text-sm">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -388,10 +388,10 @@ const Page = () => {
                   {totalMenuId === deal._id && (
                     <div
                       ref={(el) => (totalMenuRefs.current[deal._id] = el)}
-                      className="absolute right-16 top-8 bg-white border border-gray-300 rounded-md shadow-md z-10 w-32"
+                      className="absolute right-14 top-12 bg-white border border-[#DDDDDD] rounded-sm  z-10 w-32 overflow-auto"
                     >
                       <button
-                        className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:bg-gray-100"
+                        className="block w-full px-4 py-2 text-left border-b border-[#DDDDDD] text-sm hover:rounded-l-sm hover:rounded-r-sm text-gray-500 hover:bg-gray-100"
                         onClick={() => handleEdit(deal._id)}
                       >
                         Edit Deal

@@ -191,7 +191,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
         className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm"
         ref={modalRef}
       >
-        <h2 className="text-xl mb-4 font-semibold border-b border-gray-300 px-3 py-2">
+        <h2 className="text-xl mb-4 font-medium border-b border-gray-300 px-4 py-3 text-black">
           Edit Deal
         </h2>
 
@@ -223,7 +223,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             {/* upload */}
             <div
               onClick={triggerFeatureInput}
-              className="w-28 h-28 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-gray-400"
+              className="w-28 h-28 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-[#8c8c8c]"
             >
               <div className="text-center select-none">
                 <div className="text-xl font-semibold">+</div>
@@ -267,7 +267,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
               {/* add more */}
               <div
                 onClick={triggerImagesInput}
-                className="w-10 h-10 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-gray-400"
+                className="w-10 h-10 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-[#8c8c8c]"
               >
                 <span className="text-xl select-none">+</span>
                 <input
@@ -288,36 +288,36 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           {/* ------------ TITLE ------------ */}
           <div className="grid gap-4 mb-4">
             <div>
-              <label className="text-gray-400 text-sm">Deal Title</label>
+              <label className="text-[#8c8c8c] text-sm">Deal Title</label>
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Deal title"
-                className="border p-2 rounded text-sm w-full"
+                className="border p-2 rounded text-sm w-full text-black"
               />
             </div>
 
             {/* ------------ Pricing row ------------ */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
-                <label className="text-gray-400 text-sm">Market Price</label>
+                <label className="text-[#8c8c8c] text-sm">Market Price</label>
                 <input
                   type="text"
                   value={marketPrice}
                   onChange={(e) => setMarketPrice(e.target.value)}
                   placeholder="Market Price"
-                  className="border p-2 rounded text-sm w-full"
+                  className="border p-2 rounded text-sm w-full text-black"
                 />
               </div>
               <div className="flex-1">
-                <label className="text-gray-400 text-sm">Price per unit</label>
+                <label className="text-[#8c8c8c] text-sm">Price per unit</label>
                 <input
                   type="text"
                   value={pricePerUnit}
                   onChange={(e) => setPricePerUnit(e.target.value)}
                   placeholder="Price per unit"
-                  className="border p-2 rounded text-sm w-full"
+                  className="border p-2 rounded text-sm w-full text-black"
                 />
               </div>
             </div>
@@ -325,7 +325,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             {/* ------------ Quantity / Supplier row ------------ */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
-                <label className="text-gray-400 text-sm">
+                <label className="text-[#8c8c8c] text-sm">
                   Minimum order quantity
                 </label>
                 <input
@@ -333,11 +333,11 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
                   value={minOrderQty}
                   onChange={(e) => setMinOrderQty(e.target.value)}
                   placeholder="Minimum order quantity"
-                  className="border p-2 rounded text-sm w-full"
+                  className="border p-2 rounded text-sm w-full text-black"
                 />
               </div>
               <div className="flex-1">
-                <label className="text-gray-400 text-sm">
+                <label className="text-[#8c8c8c] text-sm">
                   Quantity per buyer
                 </label>
                 <input
@@ -345,11 +345,11 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
                   value={quantityOrder}
                   onChange={(e) => setQuantityOrder(e.target.value)}
                   placeholder="Quantity per buyer"
-                  className="border p-2 rounded text-sm w-full"
+                  className="border p-2 rounded text-sm w-full text-black"
                 />
               </div>
               <div className="flex-1">
-                <label className="text-gray-400 text-sm">
+                <label className="text-[#8c8c8c] text-sm">
                   Minimum required buyers
                 </label>
                 <input
@@ -357,7 +357,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
                   value={minBuyers}
                   onChange={(e) => setMinBuyers(e.target.value)}
                   placeholder="Min required buyers"
-                  className="border p-2 rounded text-sm w-full"
+                  className="border p-2 rounded text-sm w-full text-black"
                 />
               </div>
             </div>
@@ -365,23 +365,23 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             {/* ------------ Supplier row ------------ */}
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
-                <label className="text-gray-400 text-sm">Supplier (EN)</label>
+                <label className="text-[#8c8c8c] text-sm">Supplier (EN)</label>
                 <input
                   type="text"
                   value={supplierEn}
                   onChange={(e) => setSupplierEn(e.target.value)}
                   placeholder="Supplier name in English"
-                  className="border p-2 rounded text-sm w-full"
+                  className="border p-2 rounded text-sm w-full text-black"
                 />
               </div>
               <div className="flex-1">
-                <label className="text-gray-400 text-sm">Supplier (AR)</label>
+                <label className="text-[#8c8c8c] text-sm">Supplier (AR)</label>
                 <input
                   type="text"
                   value={supplierAr}
                   onChange={(e) => setSupplierAr(e.target.value)}
                   placeholder="اسم المورد بالعربية"
-                  className="border p-2 rounded text-sm w-full"
+                  className="border p-2 rounded text-sm w-full text-black"
                 />
               </div>
             </div>
@@ -389,7 +389,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
 
           {/* ------------ Delivery Window ------------ */}
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">
+            <label className="text-[#8c8c8c] text-sm">
               Estimated Delivery Window
             </label>
             <input
@@ -397,160 +397,160 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
               value={deliveryWindow}
               onChange={(e) => setDeliveryWindow(e.target.value)}
               placeholder="Estimated Delivery Window"
-              className="border p-2 rounded text-sm w-full"
+              className="border p-2 rounded text-sm w-full text-black"
             />
           </div>
 
           {/* ------------ Delivery Area & Dates ------------ */}
           <div className="flex flex-col md:flex-row gap-4 mb-4">
             <div className="flex-1">
-              <label className="text-gray-400 text-sm block">
+              <label className="text-[#8c8c8c] text-sm block">
                 Delivery Area
               </label>
               <input
                 type="text"
                 value={deliveryArea}
                 onChange={(e) => setDeliveryArea(e.target.value)}
-                className="border p-2 rounded text-sm w-full text-gray-400"
+                className="border p-2 rounded text-sm w-full text-black"
               />
             </div>
             <div className="flex-1">
-              <label className="text-gray-400 text-sm block">Start Date</label>
+              <label className="text-[#8c8c8c] text-sm block">Start Date</label>
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="border p-2 rounded text-sm w-full text-gray-400"
+                className="border p-2 rounded text-sm w-full text-black"
               />
             </div>
             <div className="flex-1">
-              <label className="text-gray-400 text-sm block">End Date</label>
+              <label className="text-[#8c8c8c] text-sm block">End Date</label>
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="border p-2 rounded text-sm w-full text-gray-400"
+                className="border p-2 rounded text-sm w-full text-black"
               />
             </div>
           </div>
 
           {/* ------------ Description ------------ */}
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">Description (EN)</label>
+            <label className="text-[#8c8c8c] text-sm">Description (EN)</label>
             <textarea
               value={descriptionEn}
               onChange={(e) => setDescriptionEn(e.target.value)}
               placeholder="Add Description"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">الوصف (AR)</label>
+            <label className="text-[#8c8c8c] text-sm">الوصف (AR)</label>
             <textarea
               value={descriptionAr}
               onChange={(e) => setDescriptionAr(e.target.value)}
               placeholder="أضف وصفًا"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
 
           {/* ------------ Notes ------------ */}
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">Add Notes</label>
+            <label className="text-[#8c8c8c] text-sm">Add Notes</label>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Add Notes"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
 
           {/* ------------ Terms ------------ */}
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">Terms & Conditions</label>
+            <label className="text-[#8c8c8c] text-sm">Terms & Conditions</label>
             <textarea
               value={terms}
               onChange={(e) => setTerms(e.target.value)}
               placeholder="Add Terms & Conditions"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
 
           {/* ------------ Payment instructions ------------ */}
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">
+            <label className="text-[#8c8c8c] text-sm">
               Payment Instructions (EN)
             </label>
             <textarea
               value={paymentEn}
               onChange={(e) => setPaymentEn(e.target.value)}
               placeholder="Payment Instructions"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">تعليمات الدفع (AR)</label>
+            <label className="text-[#8c8c8c] text-sm">تعليمات الدفع (AR)</label>
             <textarea
               value={paymentAr}
               onChange={(e) => setPaymentAr(e.target.value)}
               placeholder="تعليمات الدفع"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
 
           {/* ------------ Prefilled messages ------------ */}
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">
+            <label className="text-[#8c8c8c] text-sm">
               Prefilled message (EN)
             </label>
             <textarea
               value={prefillEn}
               onChange={(e) => setPrefillEn(e.target.value)}
               placeholder="Prefilled message"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">
+            <label className="text-[#8c8c8c] text-sm">
               الرسالة المعبأة مسبقًا (AR)
             </label>
             <textarea
               value={prefillAr}
               onChange={(e) => setPrefillAr(e.target.value)}
               placeholder="رسالة واتساب عربية"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
 
           {/* ------------ WhatsApp share message ------------ */}
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">
+            <label className="text-[#8c8c8c] text-sm">
               WhatsApp Message (EN)
             </label>
             <textarea
               value={whatsappEn}
               onChange={(e) => setWhatsappEn(e.target.value)}
               placeholder="WhatsApp message in English"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
 
           <div className="mb-4">
-            <label className="text-gray-400 text-sm">رسالة واتساب (AR)</label>
+            <label className="text-[#8c8c8c] text-sm">رسالة واتساب (AR)</label>
             <textarea
               value={whatsappAr}
               onChange={(e) => setWhatsappAr(e.target.value)}
               placeholder="رسالة واتساب بالعربية"
-              className="border p-2 w-full rounded text-sm"
+              className="border p-2 w-full rounded text-sm text-black"
               rows={2}
             />
           </div>
@@ -560,7 +560,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
         <div className="flex justify-end gap-3 px-4 py-4">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-gray-400 rounded text-[16px]"
+            className="px-4 py-2 border border-gray-400 rounded text-[16px] text-black"
           >
             Cancel
           </button>
@@ -568,7 +568,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             onClick={handleSubmit}
             className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px]"
           >
-            Update Deal
+            Save Changes
           </button>
         </div>
       </div>
