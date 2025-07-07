@@ -82,7 +82,7 @@ export default function Sidebar() {
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const menuItems = [
-    { label: "Dashboard", icon: "/dashboard.svg", href: "#" },
+    { label: "Dashboard", icon: "/dashboard.svg", href: "/" },
     { label: "Manage Deals", icon: "/manage-deals.svg", href: "/deals" },
     { label: "Manage Buyers", icon: "/manage-buyers.svg", href: "#" },
     { label: "Manage Suppliers", icon: "/manage-suppliers.svg", href: "#" },
