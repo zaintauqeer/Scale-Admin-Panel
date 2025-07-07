@@ -4,6 +4,8 @@ import CreateDealModal from "@/app/components/dealmodal";
 import CloseDealModal from "@/app/components/closedeal";
 import EditDealComponent from "@/app/components/editdeal";
 import ProtectedRoute from "@/app/components/protectedroute";
+import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 
 const Page = () => {
@@ -21,6 +23,9 @@ const Page = () => {
 
   const activeMenuRefs = useRef({});
   const totalMenuRefs = useRef({});
+
+  const router = useRouter();
+
 
   const fetchDeals = async () => {
     try {
@@ -85,11 +90,18 @@ const Page = () => {
     deal.title?.en?.toLowerCase().includes(searchTotal.toLowerCase())
   );
 
+  // const handleEdit = (id) => {
+  //   const deal = deals.find((d) => d._id === id);
+  //   setSelectedDealToEdit(deal);
+  //   setActiveMenuId(null);
+  // };
+
   const handleEdit = (id) => {
-    const deal = deals.find((d) => d._id === id);
-    setSelectedDealToEdit(deal);
+    router.push(`/deals/${id}`);
     setActiveMenuId(null);
+    setTotalMenuId(null);
   };
+  
 
   const handleClose = (id) => {
     console.log("Close", id);
@@ -156,7 +168,7 @@ const Page = () => {
           </div>
 
           <div className="relative">
-            <select className="block w-full px-4 py-2 pr-10 text-sm text-gray-700 bg-white  rounded-sm appearance-none border border-gray-300">
+            <select className="block w-full px-4 py-2 pr-10 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
               <option value="">This Week</option>
               <option value="last-week">Last Week</option>
               <option value="this-month">This Month</option>
@@ -303,7 +315,7 @@ const Page = () => {
           </div>
 
           <div className="relative">
-            <select className="block w-full px-4 py-2 pr-10 text-sm text-gray-700 bg-white  rounded-sm appearance-none border border-gray-300">
+            <select className="block w-full px-4 py-2 pr-10 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
               <option value="">This Week</option>
               <option value="last-week">Last Week</option>
               <option value="this-month">This Month</option>

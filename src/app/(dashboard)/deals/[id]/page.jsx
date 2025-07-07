@@ -49,8 +49,6 @@
 //   );
 // }
 
-
-
 // app/deals/[id]/page.jsx  (Next‑13/14/15 app router)
 import { notFound } from "next/navigation";
 import DetailDealBox from "@/app/components/detaildealbox";
@@ -66,19 +64,15 @@ async function getDeal(id) {
   return deals.find((d) => d._id === id) || null;
 }
 
-
 export default async function DealDetailPage({ params }) {
   const deal = await getDeal(params.id);
 
   if (!deal) {
-    notFound();                          // built‑in 404
+    notFound(); // built‑in 404
   }
 
   /** ---------- Map API fields → <DetailDealBox/> props ---------- */
-  const progressPct = Math.min(
-    (deal.minorder / deal.quantityOrder) * 100,
-    100
-  );
+  const progressPct = Math.min((deal.minorder / deal.quantityOrder) * 100, 100);
 
   return (
     <DetailDealBox
@@ -88,11 +82,11 @@ export default async function DealDetailPage({ params }) {
       price={`${deal.pricePerUnit}/Unit`}
       pricePerUnit={`${deal.pricePerUnit} SAR`}
       location={deal.location?.en}
-
       timeLeft={timeLeftUntil(deal.endDate)}
       progress={progressPct.toFixed(0)}
       supplierName={deal.supplier?.en}
       minOrder={`${deal.minorder} Units`}
+      termsAndNotes={`${deal.termsAndNotes?.en}`}
       deliveryTimeframe={`${formatDate(deal.startDate)} — ${formatDate(
         deal.endDate
       )}`}

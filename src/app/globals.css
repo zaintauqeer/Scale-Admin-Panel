@@ -22,7 +22,8 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  /* font-family: Arial, Helvetica, sans-serif; */
+  font-family: 'Outfit-Regular', 'Outfit-Medium', 'Outfit-SemiBold', 'Outfit-Bold', sans-serif;
 }
 
 .login-bg{
@@ -48,4 +49,32 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+
+@font-face {
+  font-family: 'Outfit-Regular';
+  src: url('/fonts/Outfit-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Outfit-Medium';
+  src: url('/fonts/Outfit-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Outfit-SemiBold';
+  src: url('/fonts/Outfit-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Outfit-Bold';
+  src: url('/fonts/Outfit-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
