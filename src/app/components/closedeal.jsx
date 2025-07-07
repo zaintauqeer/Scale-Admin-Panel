@@ -30,7 +30,7 @@ const CloseDealModal = ({ onClose, onConfirm }) => {
           <img src="/cross-mark.svg" alt="close" className="w-12 h-12" />
         </div>
         <h2 className="text-2xl font-bold mb-2">Close Deal</h2>
-        <p className="mb-6 text-xl text-gray-700">
+        <p className="mb-6 text-xl text-[#444444]">
           Are you sure you want to close this deal?
         </p>
 

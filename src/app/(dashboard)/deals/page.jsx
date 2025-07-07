@@ -168,32 +168,20 @@ const Page = () => {
           </div>
 
           <div className="relative">
-            <select className="block w-full px-4 py-2 pr-10 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
+            <select className="block w-full px-4 py-2 pr-8 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
               <option value="">This Week</option>
               <option value="last-week">Last Week</option>
               <option value="this-month">This Month</option>
               <option value="all">All Time</option>
             </select>
             {/* Custom dropdown arrow */}
-            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+            <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500 w-[10px]">
+          <img src="/arrow-down.svg" alt=""/>
             </div>
           </div>
         </div>
 
-        <table className="w-full text-left border border-gray-300 relative">
+        <table className="w-full text-left border border-gray-300 relative text-[#444444]">
           <thead>
             <tr className="border-b border-gray-200">
               <th className="py-2 px-3 font-semibold text-sm">Products</th>
@@ -315,32 +303,20 @@ const Page = () => {
           </div>
 
           <div className="relative">
-            <select className="block w-full px-4 py-2 pr-10 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
+            <select className="block w-full px-4 py-2 pr-8 text-sm text-gray-700 bg-white focus:outline-none focus:ring-1 focus:ring-[#F15625] rounded-sm appearance-none border border-gray-300">
               <option value="">This Week</option>
               <option value="last-week">Last Week</option>
               <option value="this-month">This Month</option>
               <option value="all">All Time</option>
             </select>
             {/* Custom dropdown arrow */}
-            <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-gray-500">
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
+            <div className="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500 w-[10px]">
+          <img src="/arrow-down.svg" alt=""/>
             </div>
           </div>
         </div>
 
-        <table className="w-full text-left border border-gray-300">
+        <table className="w-full text-left border border-gray-300 text-[#444444]">
           <thead>
             <tr className="border-b border-gray-200">
               <th className="py-2 px-3 font-semibold text-sm">Deals</th>
