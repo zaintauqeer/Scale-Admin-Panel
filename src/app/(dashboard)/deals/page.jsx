@@ -128,21 +128,21 @@ const Page = () => {
           <img
             src="/card1.png"
             alt="card1"
-            className="w-full h-auto rounded-md shadow-sm"
+            className="w-full h-auto rounded-sm "
           />
         </div>
         <div className="w-full">
           <img
             src="/card2.png"
             alt="card2"
-            className="w-full h-auto rounded-md shadow-sm"
+            className="w-full h-auto rounded-sm"
           />
         </div>
         <div className="w-full">
           <img
             src="/card3.png"
             alt="card3"
-            className="w-full h-auto rounded-md shadow-sm"
+            className="w-full h-auto rounded-sm"
           />
         </div>
       </div>
@@ -308,7 +308,7 @@ const Page = () => {
             />
 
             <img
-              src="/search icon.svg"
+              src="/Search icon.svg"
               alt="search icon"
               className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400"
             />
