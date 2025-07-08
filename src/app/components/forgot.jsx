@@ -42,7 +42,7 @@ export default function Forgot() {
 
       {/* forgot password card */}
       <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
-        <h3 className="text-2xl font-bold text-center mb-2">
+        <h3 className="text-2xl font-bold text-center mb-2 text-black">
           Forgot Your Password?
         </h3>
         <p className="text-center text-gray-600 mb-6 text-[17px]">
@@ -60,7 +60,7 @@ export default function Forgot() {
               onChange={(e) => setEmail(e.target.value)} // ✅ fixed setter
               placeholder="Enter here"
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] placeholder-gray-300"
+              className="w-full px-3 py-2 border text-black border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] placeholder-gray-300"
             />
           </div>
 

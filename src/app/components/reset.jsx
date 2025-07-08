@@ -62,7 +62,7 @@ if (!email) {
 
       {/* reset-password card */}
       <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
-        <h3 className="text-2xl font-bold text-center mb-2">Reset Password</h3>
+        <h3 className="text-2xl font-bold text-center mb-2 text-black">Reset Password</h3>
         <p className="text-center text-gray-600 mb-6 text-[17px]">
           Please set yourself a new password
         </p>
@@ -80,7 +80,7 @@ if (!email) {
                 onChange={(e) => setNewPassword(e.target.value)}
                 placeholder="Enter new password"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] pr-10 placeholder-gray-300"
+                className="w-full px-3 py-2 border text-black border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] pr-10 placeholder-gray-300"
               />
               <button
                 type="button"
@@ -112,7 +112,7 @@ if (!email) {
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Re-enter password"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] pr-10 placeholder-gray-300"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] pr-10 placeholder-gray-300"
               />
               <button
                 type="button"

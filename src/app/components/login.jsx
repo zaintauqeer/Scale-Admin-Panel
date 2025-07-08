@@ -54,7 +54,7 @@ export default function Login() {
 
       {/* login card */}
       <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
-        <h3 className="text-2xl font-bold text-center mb-2">Welcome Back!</h3>
+        <h3 className="text-2xl font-bold text-center mb-2 text-black">Welcome Back!</h3>
         <p className="text-center text-gray-600 mb-6 text-[17px]">
           Please provide your login information to proceed
         </p>
@@ -72,7 +72,7 @@ export default function Login() {
               placeholder="Enter here"
               required
               autoFocus
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] placeholder-gray-300"
+              className="w-full px-3 py-2 border text-black border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] placeholder-gray-300"
             />
           </div>
 
@@ -89,7 +89,7 @@ export default function Login() {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter here"
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] pr-10 placeholder-gray-300"
+                className="w-full px-3 py-2 text-black border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] pr-10 placeholder-gray-300"
               />
 
               <button

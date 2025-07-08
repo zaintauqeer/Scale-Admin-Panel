@@ -50,6 +50,7 @@
 // }
 
 // app/deals/[id]/page.jsx  (Next‑13/14/15 app router)
+
 import { notFound } from "next/navigation";
 import DetailDealBox from "@/app/components/detaildealbox";
 

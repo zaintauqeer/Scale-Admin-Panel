@@ -209,7 +209,7 @@ useEffect(() => {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Deal title"
-                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
               />
             </div>
 
@@ -222,7 +222,7 @@ useEffect(() => {
                   value={marketPrice}
                   onChange={(e) => setMarketPrice(e.target.value)}
                   placeholder="Market Price"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
               <div className="flex-1">
@@ -232,7 +232,7 @@ useEffect(() => {
                   value={pricePerUnit}
                   onChange={(e) => setPricePerUnit(e.target.value)}
                   placeholder="Price per unit"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
             </div>
@@ -248,7 +248,7 @@ useEffect(() => {
                   value={minOrderQty}
                   onChange={(e) => setMinOrderQty(e.target.value)}
                   placeholder="Minimum order quantity"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
               <div className="flex-1">
@@ -260,7 +260,7 @@ useEffect(() => {
                   value={quantityOrder}
                   onChange={(e) => setQuantityOrder(e.target.value)}
                   placeholder="Quantity per buyer"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
               <div className="flex-1">
@@ -272,7 +272,7 @@ useEffect(() => {
                   value={minBuyers}
                   onChange={(e) => setMinBuyers(e.target.value)}
                   placeholder="Min required buyers"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
             </div>
@@ -286,7 +286,7 @@ useEffect(() => {
                   value={supplierEn}
                   onChange={(e) => setSupplierEn(e.target.value)}
                   placeholder="Supplier name in English"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
               <div className="flex-1">
@@ -296,7 +296,7 @@ useEffect(() => {
                   value={supplierAr}
                   onChange={(e) => setSupplierAr(e.target.value)}
                   placeholder="اسم المورد بالعربية"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
             </div>
@@ -312,7 +312,7 @@ useEffect(() => {
               value={deliveryWindow}
               onChange={(e) => setDeliveryWindow(e.target.value)}
               placeholder="Estimated Delivery Window"
-              className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+              className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
             />
           </div>
 
@@ -327,7 +327,7 @@ useEffect(() => {
                 value={deliveryArea}
                 placeholder="Area"
                 onChange={(e) => setDeliveryArea(e.target.value)}
-                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
               />
             </div>
             <div className="flex-1">
@@ -336,7 +336,7 @@ useEffect(() => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
               />
             </div>
             <div className="flex-1">
@@ -345,7 +345,7 @@ useEffect(() => {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9]"
+                className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
               />
             </div>
           </div>
@@ -357,7 +357,7 @@ useEffect(() => {
               value={descriptionEn}
               onChange={(e) => setDescriptionEn(e.target.value)}
               placeholder="Add Description"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -367,7 +367,7 @@ useEffect(() => {
               value={descriptionAr}
               onChange={(e) => setDescriptionAr(e.target.value)}
               placeholder="أضف وصفًا"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -379,7 +379,7 @@ useEffect(() => {
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Add Notes"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -391,7 +391,7 @@ useEffect(() => {
               value={terms}
               onChange={(e) => setTerms(e.target.value)}
               placeholder="Add Terms & Conditions"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -405,7 +405,7 @@ useEffect(() => {
               value={paymentEn}
               onChange={(e) => setPaymentEn(e.target.value)}
               placeholder="Payment Instructions"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -415,7 +415,7 @@ useEffect(() => {
               value={paymentAr}
               onChange={(e) => setPaymentAr(e.target.value)}
               placeholder="تعليمات الدفع"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -429,7 +429,7 @@ useEffect(() => {
               value={prefillEn}
               onChange={(e) => setPrefillEn(e.target.value)}
               placeholder="Prefilled message"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -441,7 +441,7 @@ useEffect(() => {
               value={prefillAr}
               onChange={(e) => setPrefillAr(e.target.value)}
               placeholder="رسالة واتساب عربية"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -455,7 +455,7 @@ useEffect(() => {
               value={whatsappEn}
               onChange={(e) => setWhatsappEn(e.target.value)}
               placeholder="WhatsApp message in English"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -466,7 +466,7 @@ useEffect(() => {
               value={whatsappAr}
               onChange={(e) => setWhatsappAr(e.target.value)}
               placeholder="رسالة واتساب بالعربية"
-              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9]"
+              className="border p-2 w-full rounded text-sm placeholder-[#d9d9d9] text-black"
               rows={2}
             />
           </div>
@@ -476,14 +476,14 @@ useEffect(() => {
             <button
               type="button"
               onClick={closeModal}
-              className="px-4 py-2 border border-gray-400 rounded text-[16px] text-black"
+              className="px-4 py-2 border border-gray-400 rounded text-[16px] text-black public-sans"
             >
               Cancel
             </button>
             <button
               type="button"
               onClick={handleSubmit}
-              className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px]"
+              className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px] public-sans"
             >
               Post Deal
             </button>

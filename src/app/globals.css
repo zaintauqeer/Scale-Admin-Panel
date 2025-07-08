@@ -19,6 +19,11 @@
   }
 }
 
+:root {
+  --font-outfit: 'Outfit', sans-serif;
+  --font-public-sans: 'Public Sans', sans-serif;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
@@ -31,6 +36,12 @@ body {
   background: #FFF7F4;
   background: linear-gradient(153deg, rgba(255, 247, 244, 1) 45%, rgba(255, 247, 244, 1) 45%, rgba(255, 255, 255, 1) 45%, rgba(255, 255, 255, 1) 45%);
 }
+
+
+.public-sans {
+  font-family: var(--font-public-sans);
+}
+
 
 
 
