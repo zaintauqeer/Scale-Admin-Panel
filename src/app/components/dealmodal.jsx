@@ -293,7 +293,7 @@ const CreateDealModal = ({ closeModal }) => {
                     <option key={cat._id} value={cat.name}>
                       {cat.name}
                     </option>
-                  ))}
+                 ))}
                 </select>
               </div>
             </div>
