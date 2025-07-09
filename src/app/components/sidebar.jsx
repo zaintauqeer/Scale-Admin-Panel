@@ -84,6 +84,7 @@ export default function Sidebar() {
   const menuItems = [
     { label: "Dashboard", icon: "/dashboard.svg", href: "/" },
     { label: "Manage Deals", icon: "/manage-deals.svg", href: "/deals" },
+    { label: "Manage Sold", icon: "/manage-buyers.svg", href: "/sold" },
     { label: "Manage Orders", icon: "/manage-buyers.svg", href: "/orders" },
     { label: "Manage Suppliers", icon: "/manage-suppliers.svg", href: "/supplier" },
     { label: "Manage Categories", icon: "/manage-suppliers.svg", href: "/category" },
