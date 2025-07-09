@@ -92,7 +92,7 @@ export default function Sidebar() {
     { label: "Settings", icon: "/settings.svg", href: "#" },
   ];
 
-  return (
+  return ( 
     <>
       {/* 🔹 Mobile Top Bar */}
       <div className="md:hidden p-4 flex justify-between items-center bg-[#F15625] text-white">
