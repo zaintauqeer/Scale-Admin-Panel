@@ -125,22 +125,22 @@ const CategoryTable = () => {
                 <td className="py-2 px-4 text-sm">
                   <div className="flex gap-2 justify-center items-center">
                     <button
-                      className="bg-blue-500 text-white px-2 py-1 rounded-sm text-xs hover:bg-blue-600"
+                      className="flex gap-x-2 bg-blue-500 text-white px-2 py-1 rounded-sm text-xs hover:bg-blue-600"
                       onClick={() => {
                         setSelectedUnit(unit);
                         setShowEditModal(true);
                       }}
                     >
-                      Edit
+                      <img src="/edit.svg" alt="edit" className="w-4 h-4" />
                     </button>
                     <button
-                      className="bg-red-500 text-white px-2 py-1 rounded-sm text-xs hover:bg-red-600"
+                      className="flex gap-x-2 bg-red-500 text-white px-2 py-1 rounded-sm text-xs hover:bg-red-600"
                       onClick={() => {
                         setSelectedUnitId(unit._id);
                         setShowRemoveModal(true);
                       }}
                     >
-                      Delete
+                      <img src="/delete.svg" alt="delete" className="w-4 h-4" />
                     </button>
                   </div>
                 </td>

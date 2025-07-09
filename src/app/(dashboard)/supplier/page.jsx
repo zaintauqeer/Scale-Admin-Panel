@@ -155,7 +155,7 @@ const TableComponent = () => {
                         setShowEditModal(true);
                       }}
                     >
-                      Edit
+                      <img src="/edit.svg" alt="edit" className="w-4 h-4" />
                     </button>
                     <button
                       className="bg-red-500 text-white px-2 py-1 rounded-sm text-xs hover:bg-red-600"
@@ -164,7 +164,8 @@ const TableComponent = () => {
                         setShowRemoveModal(true);
                       }}
                     >
-                      Delete
+                      
+                      <img src="/delete.svg" alt="delete" className="w-4 h-4" />
                     </button>
                   </div>
                 </td>
