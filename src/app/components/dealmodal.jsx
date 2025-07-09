@@ -1,4 +1,4 @@
-import React, { useEffect,useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const CreateDealModal = ({ closeModal }) => {
   const fileFeatureRef = useRef(); // feature image
@@ -39,6 +39,12 @@ const CreateDealModal = ({ closeModal }) => {
   const [whatsappAr, setWhatsappAr] = useState("");
   const [prefillEn, setPrefillEn] = useState("");
   const [prefillAr, setPrefillAr] = useState(""); // <‑‑ new
+
+  /////////////////////
+  const [units, setUnits] = useState([]);
+  const [selectedUnit, setSelectedUnit] = useState("");
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   /* ---------- handlers ---------- */
   const triggerFeatureInput = () => fileFeatureRef.current.click();
@@ -89,6 +95,9 @@ const CreateDealModal = ({ closeModal }) => {
       formData.append("prefillEn", prefillEn);
       formData.append("prefillAr", prefillAr);
 
+      formData.append("unit", selectedUnit);
+      formData.append("category", selectedCategory);
+
       // Add feature image (first file)
       // ---------- images ----------
       const featureFile = fileFeatureRef.current?.files?.[0];
@@ -128,19 +137,51 @@ const CreateDealModal = ({ closeModal }) => {
     }
   };
 
-  // Close modal on outside click
-useEffect(() => {
-  const handleClickOutside = (event) => {
-    if (modalRef.current && !modalRef.current.contains(event.target)) {
-      closeModal();
-    }
-  };
-  document.addEventListener("mousedown", handleClickOutside);
-  return () => {
-    document.removeEventListener("mousedown", handleClickOutside);
-  };
-}, []);
+  useEffect(() => {
+    const fetchUnits = async () => {
+      try {
+        const res = await fetch(
+          "https://scale-gold.vercel.app/api/getAllUnits"
+        );
+        const result = await res.json();
+        setUnits(result);
+      } catch (err) {
+        console.error("Failed to fetch units:", err);
+      }
+    };
 
+    fetchUnits();
+  }, []);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const res = await fetch(
+          "https://scale-gold.vercel.app/api/getAllCategories"
+        );
+        if (!res.ok) throw new Error("Failed to fetch categories");
+        const result = await res.json();
+        setCategories(result);
+      } catch (err) {
+        console.error("Error loading categories:", err);
+      }
+    };
+
+    fetchCategories();
+  }, []);
+
+  // Close modal on outside click
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (modalRef.current && !modalRef.current.contains(event.target)) {
+        closeModal();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   /*  ====== JSX ======  */
   return (
@@ -148,7 +189,10 @@ useEffect(() => {
       className="fixed inset-0 flex justify-center items-center z-50 px-4"
       style={{ backgroundColor: "rgba(0, 0, 0, 0.8)" }}
     >
-      <div className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm"   ref={modalRef}>
+      <div
+        className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm"
+        ref={modalRef}
+      >
         <h2 className="text-xl mb-4 font-medium border-b border-b-gray-300 px-3 py-3 text-black">
           Create Deal
         </h2>
@@ -235,24 +279,58 @@ useEffect(() => {
                   className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
+
+              {/* ------------ Category Dropdown ------------ */}
+              <div className="mb-4">
+                <label className="text-[#8c8c8c] text-sm">Category</label>
+                <select
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(e.target.value)}
+                  className="border p-2 rounded text-sm w-full bg-gray-100 text-gray-500"
+                >
+                  <option value="">Select a category</option>
+                  {categories.map((cat) => (
+                    <option key={cat._id} value={cat.name}>
+                      {cat.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
 
             {/* ------------ Quantity / Supplier row ------------ */}
             <div className="flex flex-col md:flex-row gap-4">
+              {/* ✅ Minimum Order Quantity with unit dropdown */}
               <div className="flex-1">
-                <label className="text-[#8c8c8c] text-sm">
+                <label className="text-[#8c8c8c] text-sm mb-1 block">
                   Minimum order quantity
                 </label>
-                <input
-                  type="text"
-                  value={minOrderQty}
-                  onChange={(e) => setMinOrderQty(e.target.value)}
-                  placeholder="Minimum order quantity"
-                  className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
-                />
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={minOrderQty}
+                    onChange={(e) => setMinOrderQty(e.target.value)}
+                    placeholder="Minimum order quantity"
+                    className="border p-2 pr-24 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
+                  />
+                  <select
+                    value={selectedUnit}
+                    onChange={(e) => setSelectedUnit(e.target.value)}
+                    className="absolute top-1 right-1 h-[calc(100%-0.5rem)] bg-gray-200 text-sm text-gray-500 px-2 rounded-r"
+                  >
+                    <option value="">Unit</option>
+                    {units.map((unit) => (
+                      <option key={unit._id} value={unit.name}>
+                        {unit.name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
+
+              {/* ✅ Quantity per buyer */}
               <div className="flex-1">
-                <label className="text-[#8c8c8c] text-sm">
+                <label className="text-[#8c8c8c] text-sm mb-1 block">
                   Quantity per buyer
                 </label>
                 <input
@@ -263,8 +341,10 @@ useEffect(() => {
                   className="border p-2 rounded text-sm w-full placeholder-[#d9d9d9] text-black"
                 />
               </div>
+
+              {/* ✅ Minimum required buyers */}
               <div className="flex-1">
-                <label className="text-[#8c8c8c] text-sm">
+                <label className="text-[#8c8c8c] text-sm mb-1 block">
                   Minimum required buyers
                 </label>
                 <input

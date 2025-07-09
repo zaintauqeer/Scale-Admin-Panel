@@ -1,0 +1,80 @@
+"use client";
+import { useState, useEffect } from "react";
+
+export default function EditCategoryModal({ unit, closeModal, refreshData }) {
+  const [formData, setFormData] = useState({
+    name: "",
+  });
+
+  useEffect(() => {
+    if (unit) {
+      setFormData({
+        name: unit.name || "",
+      });
+    }
+  }, [unit]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const res = await fetch(
+        `https://scale-gold.vercel.app/api/updateCategory/${unit._id}`, // ✅ dynamic id
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      if (!res.ok) {
+        const text = await res.text();
+        throw new Error(text || "Failed to update category");
+      }
+
+      const updatedCategory = await res.json();
+      refreshData(updatedCategory);
+      closeModal();
+    } catch (err) {
+      console.error("❌ Update error:", err);
+      alert(err.message);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 bg-black bg-opacity-30 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-md w-[400px]">
+        <h2 className="text-lg font-semibold mb-4 text-black">Edit Category</h2>
+
+        <input
+          type="text"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          placeholder="Enter category name"
+          className="w-full mb-4 p-2 border rounded text-black placeholder:text-gray-400"
+        />
+
+        <div className="flex justify-end gap-3">
+          <button
+            onClick={closeModal}
+            className="px-4 py-2 rounded text-black border border-gray-300"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-[#f15525] text-white rounded"
+          >
+            Update
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}

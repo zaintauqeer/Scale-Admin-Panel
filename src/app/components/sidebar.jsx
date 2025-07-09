@@ -84,8 +84,10 @@ export default function Sidebar() {
   const menuItems = [
     { label: "Dashboard", icon: "/dashboard.svg", href: "/" },
     { label: "Manage Deals", icon: "/manage-deals.svg", href: "/deals" },
-    { label: "Manage Orders", icon: "/manage-buyers.svg", href: "#" },
-    { label: "Manage Suppliers", icon: "/manage-suppliers.svg", href: "#" },
+    { label: "Manage Orders", icon: "/manage-buyers.svg", href: "/orders" },
+    { label: "Manage Suppliers", icon: "/manage-suppliers.svg", href: "/supplier" },
+    { label: "Manage Categories", icon: "/manage-suppliers.svg", href: "/category" },
+    { label: "Manage Units", icon: "/shipping-tracker.svg", href: "/units" },
     { label: "Shipping Tracker", icon: "/shipping-tracker.svg", href: "#" },
     { label: "Settings", icon: "/settings.svg", href: "#" },
   ];

@@ -11,6 +11,8 @@ import Link from "next/link";
 const Page = () => {
   const [showModal, setShowModal] = useState(false);
   const [deals, setDeals] = useState([]);
+  const [currentTime, setCurrentTime] = useState(Date.now());
+
   // const [menuOpenId, setMenuOpenId] = useState(null); // 🔁 One menu open at a time
   const [activeMenuId, setActiveMenuId] = useState(null);
   const [totalMenuId, setTotalMenuId] = useState(null);
@@ -46,6 +48,15 @@ const Page = () => {
   useEffect(() => {
     fetchDeals();
   }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(Date.now()); // Triggers re-render
+    }, 60 * 1000); // every 60 seconds (1 minute)
+  
+    return () => clearInterval(interval); // cleanup
+  }, []);
+  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -448,7 +459,7 @@ const Page = () => {
               try {
                 const token = localStorage.getItem("authToken"); // ✅
                 await fetch(
-                  `https://scale-gold.vercel.app/api/items/Itemdelete/${selectedDealId}`, // ✅
+                  `https://scale-gold.vercel.app/api/items/Itemdelete/${id}`, // ✅
                   {
                     method: "DELETE",
                     headers: {
