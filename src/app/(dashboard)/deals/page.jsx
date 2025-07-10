@@ -100,11 +100,6 @@ const Page = () => {
     deal.title?.en?.toLowerCase().includes(searchTotal.toLowerCase())
   );
 
-  // const handleEdit = (id) => {
-  //   const deal = deals.find((d) => d._id === id);
-  //   setSelectedDealToEdit(deal);
-  //   setActiveMenuId(null);
-  // };
 
   const handleEdit = (id) => {
     router.push(`/deals/${id}`);
@@ -392,7 +387,8 @@ const Page = () => {
                     </div>
                   </td>
                   <td className="py-2 px-3 text-sm">
-                    {calculateTimeLeft(deal.endDate)}
+                    {/* {calculateTimeLeft(deal.endDate)} */}
+                    {deal.status}
                   </td>
                   <td className="py-2 px-3 text-sm relative">
                     <div className="flex mx-4">
