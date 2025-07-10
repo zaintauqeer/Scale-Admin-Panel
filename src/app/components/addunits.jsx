@@ -3,14 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 
 const AddUnitsModal = ({ closeModal }) => {
   const modalRef = useRef();
-  const [name, setName] = useState(""); // ✅ updated from unit to name
+  const [name_en, setNameEn] = useState("");
+  const [name_ar, setNameAr] = useState("");
 
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) return alert("Please log in first.");
 
-      const payload = { name }; // ✅ send field as "name"
+      const payload = {
+        name_en,
+        name_ar,
+      };
 
       const res = await fetch("https://scale-gold.vercel.app/api/createUnit", {
         method: "POST",
@@ -53,13 +57,24 @@ const AddUnitsModal = ({ closeModal }) => {
 
         <div className="grid gap-4 text-sm text-black">
           <div>
-            <label className="text-gray-600">Unit</label>
+            <label className="text-gray-600">Unit (English)</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={name_en}
+              onChange={(e) => setNameEn(e.target.value)}
               className="border p-2 rounded w-full placeholder:text-gray-300"
-              placeholder="Enter unit"
+              placeholder="Enter unit in English"
+            />
+          </div>
+          <div>
+            <label className="text-gray-600">Unit (Arabic)</label>
+            <input
+              type="text"
+              dir="rtl"
+              value={name_ar}
+              onChange={(e) => setNameAr(e.target.value)}
+              className="border p-2 rounded w-full placeholder:text-gray-300"
+              placeholder="أدخل الوحدة بالعربية"
             />
           </div>
         </div>
@@ -67,7 +82,7 @@ const AddUnitsModal = ({ closeModal }) => {
         <div className="flex justify-end gap-2 mt-6">
           <button
             onClick={closeModal}
-            className="px-4 py-2 border border-gray-300 rounded-sm hover:bg-gray-50"
+            className="px-4 py-2 border border-gray-300 rounded-sm hover:bg-gray-50 text-black"
           >
             Cancel
           </button>

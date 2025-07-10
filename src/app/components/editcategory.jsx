@@ -3,13 +3,15 @@ import { useState, useEffect } from "react";
 
 export default function EditCategoryModal({ unit, closeModal, refreshData }) {
   const [formData, setFormData] = useState({
-    name: "",
+    name_en: "",
+    name_ar: "",
   });
 
   useEffect(() => {
     if (unit) {
       setFormData({
-        name: unit.name || "",
+        name_en: unit.name_en || "",
+        name_ar: unit.name_ar || "",
       });
     }
   }, [unit]);
@@ -22,7 +24,7 @@ export default function EditCategoryModal({ unit, closeModal, refreshData }) {
   const handleSubmit = async () => {
     try {
       const res = await fetch(
-        `https://scale-gold.vercel.app/api/updateCategory/${unit._id}`, // ✅ dynamic id
+        `https://scale-gold.vercel.app/api/updateCategory/${unit._id}`,
         {
           method: "PUT",
           headers: {
@@ -53,11 +55,21 @@ export default function EditCategoryModal({ unit, closeModal, refreshData }) {
 
         <input
           type="text"
-          name="name"
-          value={formData.name}
+          name="name_en"
+          value={formData.name_en}
           onChange={handleChange}
-          placeholder="Enter category name"
+          placeholder="Category Name (English)"
+          className="w-full mb-3 p-2 border rounded text-black placeholder:text-gray-400"
+        />
+
+        <input
+          type="text"
+          name="name_ar"
+          value={formData.name_ar}
+          onChange={handleChange}
+          placeholder="Category Name (Arabic)"
           className="w-full mb-4 p-2 border rounded text-black placeholder:text-gray-400"
+          dir="rtl"
         />
 
         <div className="flex justify-end gap-3">

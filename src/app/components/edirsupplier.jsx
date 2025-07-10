@@ -1,11 +1,10 @@
-
-
 "use client";
 import { useState, useEffect } from "react";
 
 export default function EditSupplierModal({ supplier, closeModal, refreshData }) {
   const [formData, setFormData] = useState({
-    name: "",
+    name_en: "",
+    name_ar: "",
     phone: "",
     email: "",
     address: "",
@@ -15,7 +14,8 @@ export default function EditSupplierModal({ supplier, closeModal, refreshData })
   useEffect(() => {
     if (supplier) {
       setFormData({
-        name: supplier.name || "",
+        name_en: supplier.name_en || "",
+        name_ar: supplier.name_ar || "",
         phone: supplier.phone || "",
         email: supplier.email || "",
         address: supplier.address || "",
@@ -37,17 +37,17 @@ export default function EditSupplierModal({ supplier, closeModal, refreshData })
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            // Authorization: `Bearer ${token}`, // Uncomment and add token if required
+            // Authorization: `Bearer ${token}`, // Uncomment if auth required
           },
           body: JSON.stringify(formData),
         }
       );
-  
+
       if (!res.ok) {
         const text = await res.text();
         throw new Error(text || "Failed to update supplier");
       }
-  
+
       const updatedSupplier = await res.json();
       refreshData(updatedSupplier);
       closeModal();
@@ -64,11 +64,20 @@ export default function EditSupplierModal({ supplier, closeModal, refreshData })
 
         <input
           type="text"
-          name="name"
-          value={formData.name}
+          name="name_en"
+          value={formData.name_en}
           onChange={handleChange}
-          placeholder="Name"
+          placeholder="Name (English)"
           className="w-full mb-3 p-2 border rounded text-black"
+        />
+        <input
+          type="text"
+          name="name_ar"
+          value={formData.name_ar}
+          onChange={handleChange}
+          placeholder="Name (Arabic)"
+          className="w-full mb-3 p-2 border rounded text-black"
+          dir="rtl"
         />
         <input
           type="text"

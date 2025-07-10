@@ -5,7 +5,8 @@ const AddSupplierModal = ({ closeModal }) => {
   const modalRef = useRef();
   const dropdownRef = useRef();
 
-  const [name, setName] = useState("");
+  const [nameEn, setNameEn] = useState("");
+  const [nameAr, setNameAr] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
@@ -30,35 +31,35 @@ const AddSupplierModal = ({ closeModal }) => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) return alert("Please log in first.");
-  
+
       const payload = {
-        name,
+        name_en: nameEn,
+        name_ar: nameAr,
         phone,
         email,
         address,
         status,
         serviceArea: selectedAreas.join(", "),
       };
-  
+
       const res = await fetch("https://scale-gold.vercel.app/api/createSupplier", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json", // important
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
       });
-  
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Something went wrong");
-  
+
       alert("Supplier added successfully!");
       closeModal();
     } catch (err) {
       alert(err.message);
     }
   };
-  
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -92,13 +93,25 @@ const AddSupplierModal = ({ closeModal }) => {
 
         <div className="p-4 grid gap-4 text-sm text-black">
           <div>
-            <label className="text-gray-600">Name</label>
+            <label className="text-gray-600">Name (English)</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={nameEn}
+              onChange={(e) => setNameEn(e.target.value)}
               className="border p-2 rounded w-full placeholder:text-gray-300"
-              placeholder="Enter name"
+              placeholder="Enter English name"
+            />
+          </div>
+
+          <div>
+            <label className="text-gray-600">Name (Arabic)</label>
+            <input
+              type="text"
+              value={nameAr}
+              onChange={(e) => setNameAr(e.target.value)}
+              className="border p-2 rounded w-full placeholder:text-gray-300"
+              placeholder="Enter Arabic name"
+              dir="rtl"
             />
           </div>
 
@@ -167,7 +180,6 @@ const AddSupplierModal = ({ closeModal }) => {
             )}
           </div>
 
-          {/* Buttons */}
           <div className="flex justify-end gap-2 mt-4">
             <button
               onClick={closeModal}

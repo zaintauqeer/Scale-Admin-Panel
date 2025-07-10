@@ -36,7 +36,7 @@ const TableComponent = () => {
   useEffect(() => {
     setFilteredData(
       data.filter((user) =>
-        user.name?.toLowerCase().includes(search.toLowerCase())
+        user.name_en?.toLowerCase().includes(search.toLowerCase())
       )
     );
   }, [search, data]);
@@ -131,7 +131,7 @@ const TableComponent = () => {
           <tbody>
             {filteredData.map((supplier) => (
               <tr key={supplier._id} className="border-t hover:bg-gray-50">
-                <td className="py-2 px-4 text-black text-center">{supplier.name}</td>
+                <td className="py-2 px-4 text-black text-center">{supplier.name_en}</td>
                 <td className="py-2 px-4 text-black text-center">{supplier.address || "—"}</td>
                 <td className="py-2 px-4 text-black text-center">{supplier.phone}</td>
                 <td className="py-2 px-4 text-black text-center">{supplier.email}</td>
@@ -164,7 +164,6 @@ const TableComponent = () => {
                         setShowRemoveModal(true);
                       }}
                     >
-                      
                       <img src="/delete.svg" alt="delete" className="w-4 h-4" />
                     </button>
                   </div>

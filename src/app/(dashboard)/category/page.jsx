@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import AddCategoryModal from "@/app/components/addcategory";
 import RemoveCategoryModal from "@/app/components/removecategory";
-import EditCategoryModal from "@/app/components/editcategory";// Make sure filename matches
+import EditCategoryModal from "@/app/components/editcategory";
 
 const CategoryTable = () => {
   const [data, setData] = useState([]);
@@ -34,7 +34,8 @@ const CategoryTable = () => {
   useEffect(() => {
     setFilteredData(
       data.filter((item) =>
-        item.name?.toLowerCase().includes(search.toLowerCase())
+        item.name_en?.toLowerCase().includes(search.toLowerCase()) ||
+        item.name_ar?.toLowerCase().includes(search.toLowerCase())
       )
     );
   }, [search, data]);
@@ -113,7 +114,8 @@ const CategoryTable = () => {
           <thead className="text-gray-700 bg-gray-50">
             <tr>
               <th className="py-2 px-4">S.No</th>
-              <th className="py-2 px-6">Category</th>
+              <th className="py-2 px-6">Category (EN)</th>
+              <th className="py-2 px-6">Category (AR)</th>
               <th className="py-2 px-4">Action</th>
             </tr>
           </thead>
@@ -121,7 +123,8 @@ const CategoryTable = () => {
             {filteredData.map((unit, index) => (
               <tr key={unit._id} className="border-t hover:bg-gray-50">
                 <td className="py-2 px-4 text-black text-center">{index + 1}</td>
-                <td className="py-2 px-6 text-black text-center">{unit.name}</td>
+                <td className="py-2 px-6 text-black text-center">{unit.name_en || "—"}</td>
+                <td className="py-2 px-6 text-black text-center" dir="rtl">{unit.name_ar || "—"}</td>
                 <td className="py-2 px-4 text-sm">
                   <div className="flex gap-2 justify-center items-center">
                     <button
@@ -138,7 +141,7 @@ const CategoryTable = () => {
                       onClick={() => {
                         setSelectedUnitId(unit._id);
                         setShowRemoveModal(true);
-                      }} 
+                      }}
                     >
                       <img src="/delete.svg" alt="delete" className="w-4 h-4" />
                     </button>

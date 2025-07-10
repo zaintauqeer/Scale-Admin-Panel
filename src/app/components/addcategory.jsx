@@ -3,14 +3,18 @@ import React, { useEffect, useRef, useState } from "react";
 
 const AddCategoryModal = ({ closeModal }) => {
   const modalRef = useRef();
-  const [name, setName] = useState("");
+  const [nameEn, setNameEn] = useState("");
+  const [nameAr, setNameAr] = useState("");
 
   const handleSubmit = async () => {
     try {
       const token = localStorage.getItem("authToken");
       if (!token) return alert("Please log in first.");
 
-      const payload = { name }; // Backend expects { name }
+      const payload = {
+        name_en: nameEn,
+        name_ar: nameAr,
+      };
 
       const res = await fetch("https://scale-gold.vercel.app/api/createCategory", {
         method: "POST",
@@ -47,19 +51,31 @@ const AddCategoryModal = ({ closeModal }) => {
         ref={modalRef}
         className="bg-white w-full max-w-[400px] rounded-sm p-4"
       >
-        <h2 className="text-xl mb-4 font-medium border-b border-gray-300 pb-2 text-black">
+        <h2 className="text-xl mb-4 font-medium border-b border-gray-300 pb-2 text-black ">
           Add Category
         </h2>
 
         <div className="grid gap-4 text-sm text-black">
           <div>
-            <label className="text-gray-600">Category</label>
+            <label className="text-gray-600">Category Name (English)</label>
             <input
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={nameEn}
+              onChange={(e) => setNameEn(e.target.value)}
               className="border p-2 rounded w-full placeholder:text-gray-300"
-              placeholder="Enter category name"
+              placeholder="Enter category name in English"
+            />
+          </div>
+
+          <div>
+            <label className="text-gray-600">Category Name (Arabic)</label>
+            <input
+              type="text"
+              value={nameAr}
+              onChange={(e) => setNameAr(e.target.value)}
+              className="border p-2 rounded w-full placeholder:text-gray-300"
+              placeholder="Enter category name in Arabic"
+              dir="rtl"
             />
           </div>
         </div>
@@ -67,7 +83,7 @@ const AddCategoryModal = ({ closeModal }) => {
         <div className="flex justify-end gap-2 mt-6">
           <button
             onClick={closeModal}
-            className="px-4 py-2 border border-gray-300 rounded-sm hover:bg-gray-50"
+            className="px-4 py-2 border border-gray-300 rounded-sm hover:bg-gray-50 text-black"
           >
             Cancel
           </button>
