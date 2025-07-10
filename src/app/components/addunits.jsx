@@ -28,13 +28,21 @@ const AddUnitsModal = ({ closeModal }) => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Something went wrong");
 
-      alert("Unit created successfully!");
+      //--------------Swal
+
+      Swal.fire({
+        title: "Unit added successfully!",
+        icon: "success",
+        confirmButtonColor: "#f15525", // your custom color (orange)
+      });
       closeModal();
     } catch (err) {
       alert(err.message);
     }
   };
 
+
+//------------------mouse hover UseEffect
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
@@ -44,6 +52,9 @@ const AddUnitsModal = ({ closeModal }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [closeModal]);
+
+
+  //-----------------------JSX STARTS HERE
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 px-4 bg-black/60">

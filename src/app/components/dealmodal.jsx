@@ -831,7 +831,14 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
         throw new Error(data.message || `HTTP Error ${res.status}: Server error`);
       }
 
-      alert("Deal created successfully!");
+      //--------------Swal
+
+      Swal.fire({
+        title: "Deal Created successfully!",
+        icon: "success",
+        confirmButtonColor: "#f15525", // your custom color (orange)
+      });
+
       closeModal();
       if (typeof refreshDeals === "function") {
         await refreshDeals();
@@ -843,7 +850,7 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
       setIsSubmitting(false);
     }
   };
-
+//----------------------------------Fetch Units
   useEffect(() => {
     const fetchUnits = async () => {
       setIsLoadingUnits(true);
@@ -1428,7 +1435,7 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
             <button
               type="button"
               onClick={handleSubmit}
-              className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px] font-sans disabled:opacity-50"
+              className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px] font-sans disabled:opacity-50 cursor-pointer"
               disabled={isSubmitting}
             >
               {isSubmitting ? "Posting..." : "Post Deal"}

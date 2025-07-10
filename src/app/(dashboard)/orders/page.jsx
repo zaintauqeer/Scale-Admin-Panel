@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import AddOrderModal from "@/app/components/addorders";
 
 const OrdersTable = () => {
   const [orders, setOrders] = useState([]);
@@ -7,6 +8,7 @@ const OrdersTable = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showModal, setShowModal] = useState(false); 
 
   const fetchOrders = async () => {
     try {
@@ -51,6 +53,13 @@ const OrdersTable = () => {
     <div className="p-1">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-xl font-medium text-black">Manage Orders</h3>
+        <button
+          onClick={() => setShowModal(true)}
+          className="flex gap-x-2 bg-[#f15525] px-4 py-2 text-[16px] rounded-sm text-white public-sans"
+        >
+          <img src="/plus.svg" alt="plus" />
+          Add Orders
+        </button>
       </div>
       <div className="p-4 border rounded-md bg-white">
         <div className="flex justify-between items-center mb-4">
@@ -74,12 +83,16 @@ const OrdersTable = () => {
         <table className="w-full border border-gray-200 text-sm">
           <thead className="text-gray-700 bg-gray-50">
             <tr>
-              <th className="py-2 px-4">S.No</th>
+              {/* <th className="py-2 px-4">S.No</th> */}
               <th className="py-2 px-4">Customer Name</th>
               <th className="py-2 px-4">Product</th>
+              <th className="py-2 px-4">Quantity</th>
+              <th className="py-2 px-4">Price</th>
               <th className="py-2 px-4">Contact</th>
               <th className="py-2 px-4">Email</th>
-              <th className="py-2 px-4">Quantity</th>
+              <th className="py-2 px-4">Order Date</th>
+              <th className="py-2 px-4">Order Status</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -104,18 +117,31 @@ const OrdersTable = () => {
             ) : (
               filteredOrders.map((order, index) => (
                 <tr key={order._id || index} className="border-t hover:bg-gray-50">
-                  <td className="py-2 px-4 text-black text-center">{index + 1}</td>
+                  {/* <td className="py-2 px-4 text-black text-center">{index + 1}</td> */}
                   <td className="py-2 px-4 text-black text-center">{order.username}</td>
                   <td className="py-2 px-4 text-black text-center">{order.title_en}</td>
+                  <td className="py-2 px-4 text-black text-center">{order.quantity}</td>
+                  <td className="py-2 px-4 text-black text-center">{order.pricePerUnit}</td>
                   <td className="py-2 px-4 text-black text-center">{order.contactNumber}</td>
                   <td className="py-2 px-4 text-black text-center">{order.email}</td>
-                  <td className="py-2 px-4 text-black text-center">{order.quantity}</td>
+                  <td className="py-2 px-4 text-black text-center">
+  {new Date(order.orderDate).toLocaleDateString("en-CA")}{" "}
+  ({new Date(order.orderDate).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  })})
+</td>
+
+                  <td className="py-2 px-4 text-black text-center">{order.orderStatus}</td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
       </div>
+      {/* ✅ Show Modal Component */}
+      {showModal && <AddOrderModal closeModal={() => setShowModal(false)} />}
     </div>
   );
 };

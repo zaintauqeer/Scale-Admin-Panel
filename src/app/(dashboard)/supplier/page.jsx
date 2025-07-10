@@ -14,6 +14,9 @@ const TableComponent = () => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedSupplier, setSelectedSupplier] = useState(null);
 
+
+  //--------------------------------------------------Get All Suppliers
+
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
@@ -32,6 +35,11 @@ const TableComponent = () => {
 
     fetchSuppliers();
   }, []);
+
+
+
+  //------------------------------- Delete Supplier Api-------------------------------------
+
 
   useEffect(() => {
     setFilteredData(
@@ -83,7 +91,7 @@ const TableComponent = () => {
     setFilteredData(updatedList);
     setShowEditModal(false);
   };
-
+//----------------------------------------   JSX STARTS FROM HERE
   return (
     <div className="p-1">
       <div className="flex justify-between items-center mb-6">
@@ -120,7 +128,8 @@ const TableComponent = () => {
         <table className="w-full border border-gray-200 text-sm">
           <thead className="text-gray-700 bg-gray-50">
             <tr>
-              <th className="py-2 px-4">Name</th>
+              <th className="py-2 px-4">Supplier</th>
+              <th className="py-2 px-4">Supplier(AR)</th>
               <th className="py-2 px-4">Area</th>
               <th className="py-2 px-4">Contact</th>
               <th className="py-2 px-4">Email</th>
@@ -132,6 +141,8 @@ const TableComponent = () => {
             {filteredData.map((supplier) => (
               <tr key={supplier._id} className="border-t hover:bg-gray-50">
                 <td className="py-2 px-4 text-black text-center">{supplier.name_en}</td>
+                <td className="py-2 px-4 text-black text-center">{supplier.name_ar}</td>
+
                 <td className="py-2 px-4 text-black text-center">{supplier.address || "—"}</td>
                 <td className="py-2 px-4 text-black text-center">{supplier.phone}</td>
                 <td className="py-2 px-4 text-black text-center">{supplier.email}</td>

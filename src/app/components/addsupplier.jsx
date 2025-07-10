@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 const AddSupplierModal = ({ closeModal }) => {
   const modalRef = useRef();
@@ -53,8 +54,17 @@ const AddSupplierModal = ({ closeModal }) => {
 
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Something went wrong");
+      
 
-      alert("Supplier added successfully!");
+
+//--------------Swal
+
+      Swal.fire({
+        title: "Supplier added successfully!",
+        icon: "success",
+        confirmButtonColor: "#f15525", // your custom color (orange)
+      });
+      
       closeModal();
     } catch (err) {
       alert(err.message);
@@ -80,6 +90,10 @@ const AddSupplierModal = ({ closeModal }) => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+
+//-------------------------------------------------JSX STARTS HERE
+
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 px-4 bg-black/60">

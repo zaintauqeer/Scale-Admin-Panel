@@ -28,12 +28,19 @@ const AddCategoryModal = ({ closeModal }) => {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Something went wrong");
 
-      alert("Category created successfully!");
+      //--------------Swal
+
+      Swal.fire({
+        title: "Category added successfully!",
+        icon: "success",
+        confirmButtonColor: "#f15525", // your custom color (orange)
+      });
       closeModal();
     } catch (err) {
       alert(err.message);
     }
   };
+//------------------Mouse hover useEffect
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -43,8 +50,11 @@ const AddCategoryModal = ({ closeModal }) => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+
   }, [closeModal]);
 
+
+//-------------------------------JSX STARTS HERE
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50 px-4 bg-black/60">
       <div

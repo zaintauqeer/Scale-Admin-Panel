@@ -455,7 +455,7 @@ const Page = () => {
               try {
                 const token = localStorage.getItem("authToken"); // ✅
                 await fetch(
-                  `https://scale-gold.vercel.app/api/items/Itemdelete/${id}`, // ✅
+                  `https://scale-gold.vercel.app/api/items/Itemdelete/${selectedDealId}`, // ✅
                   {
                     method: "DELETE",
                     headers: {

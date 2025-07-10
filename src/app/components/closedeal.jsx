@@ -43,7 +43,7 @@ const CloseDealModal = ({ onClose, onConfirm }) => {
           </button>
           <button
             onClick={onConfirm}
-            className="px-24 py-2 bg-[#f15525] text-white rounded-sm text-[16px]"
+            className="px-24 py-2 bg-[#f15525] text-white rounded-sm text-[16px] cursor-pointer"
           >
             Yes, Close
           </button>
