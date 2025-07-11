@@ -8,17 +8,20 @@ const OrdersTable = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [showModal, setShowModal] = useState(false); 
+  const [showModal, setShowModal] = useState(false);
 
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await fetch("https://scale-gold.vercel.app/api/getAllOrders", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const res = await fetch(
+        "https://scale-gold.vercel.app/api/getAllOrders",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}));
@@ -55,7 +58,7 @@ const OrdersTable = () => {
         <h3 className="text-xl font-medium text-black">Manage Orders</h3>
         <button
           onClick={() => setShowModal(true)}
-          className="flex gap-x-2 bg-[#f15525] px-4 py-2 text-[16px] rounded-sm text-white public-sans"
+          className="flex gap-x-2 bg-[#f15525] px-4 py-2 text-[16px] rounded-sm text-white public-sans  cursor-pointer"
         >
           <img src="/plus.svg" alt="plus" />
           Add Orders
@@ -92,7 +95,6 @@ const OrdersTable = () => {
               <th className="py-2 px-4">Email</th>
               <th className="py-2 px-4">Order Date</th>
               <th className="py-2 px-4">Order Status</th>
-              
             </tr>
           </thead>
           <tbody>
@@ -116,24 +118,42 @@ const OrdersTable = () => {
               </tr>
             ) : (
               filteredOrders.map((order, index) => (
-                <tr key={order._id || index} className="border-t hover:bg-gray-50">
+                <tr
+                  key={order._id || index}
+                  className="border-t hover:bg-gray-50"
+                >
                   {/* <td className="py-2 px-4 text-black text-center">{index + 1}</td> */}
-                  <td className="py-2 px-4 text-black text-center">{order.username}</td>
-                  <td className="py-2 px-4 text-black text-center">{order.title_en}</td>
-                  <td className="py-2 px-4 text-black text-center">{order.quantity}</td>
-                  <td className="py-2 px-4 text-black text-center">{order.pricePerUnit}</td>
-                  <td className="py-2 px-4 text-black text-center">{order.contactNumber}</td>
-                  <td className="py-2 px-4 text-black text-center">{order.email}</td>
                   <td className="py-2 px-4 text-black text-center">
-  {new Date(order.orderDate).toLocaleDateString("en-CA")}{" "}
-  ({new Date(order.orderDate).toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  })})
-</td>
+                    {order.username}
+                  </td>
+                  <td className="py-2 px-4 text-black text-center">
+                    {order.title_en}
+                  </td>
+                  <td className="py-2 px-4 text-black text-center">
+                    {order.quantity}
+                  </td>
+                  <td className="py-2 px-4 text-black text-center">
+                    {order.pricePerUnit}
+                  </td>
+                  <td className="py-2 px-4 text-black text-center">
+                    {order.contactNumber}
+                  </td>
+                  <td className="py-2 px-4 text-black text-center">
+                    {order.email}
+                  </td>
+                  <td className="py-2 px-4 text-black text-center">
+                    {new Date(order.orderDate).toLocaleDateString("en-CA")} (
+                    {new Date(order.orderDate).toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "2-digit",
+                      hour12: true,
+                    })}
+                    )
+                  </td>
 
-                  <td className="py-2 px-4 text-black text-center">{order.orderStatus}</td>
+                  <td className="py-2 px-4 text-black text-center">
+                    {order.orderStatus}
+                  </td>
                 </tr>
               ))
             )}

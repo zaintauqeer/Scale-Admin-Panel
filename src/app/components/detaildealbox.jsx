@@ -157,33 +157,37 @@ const DetailDealBox = ({
 
       {showEditModal && (
         <EditDealComponent
-          deal={{
-            _id,
-            image: safeImage,
-            images: gallery.filter((_, i) => i > 0), // Exclude feature image from images array
-            title: { en: title },
-            marketPrice: price, // Added to align with EditDealComponent
-            pricePerUnit,
-            location: { en: location },
-            supplier: { en: supplierName },
-            minorder: minOrder,
-            quantityOrder: minOrder, // Assuming same as minOrder for now
-            minRequiredBuyers: "1", // Default value; adjust as needed
-            deliveryWindow: deliveryTimeframe,
-            startDate: "", // Replace with actual data if available
-            endDate: "", // Replace with actual data if available
-            description: { en: termsAndNotes }, // Using termsAndNotes as description
-            termsAndNotes: { en: termsAndNotes },
-            paymentInstructions: { en: "", ar: "" }, // Add defaults
-            whatsappMessages: { en: "", ar: "" }, // Add defaults
-            prefilledMessages: { en: "", ar: "" }, // Add defaults
-          }}
-          onClose={() => setShowEditModal(false)}
-          onUpdate={() => {
-            setShowEditModal(false);
-            // Optionally refresh data from parent
-          }}
-        />
+        deal={{
+          _id: _id || "",
+          featureImage: safeImage || null,
+          images: Array.isArray(images) ? images.filter((src) => src && src !== safeImage) : [],
+          title: { en: title || "", ar: title ||"" },
+          marketPrice: price ? String(price) : "",
+          pricePerUnit: pricePerUnit ? String(pricePerUnit) : "",
+          minorder: minOrder ? String(minOrder) : "",
+          quantityOrder: minOrder ? String(minOrder) : "", // Fallback; replace with actual quantityOrder if available
+          minRequiredBuyers: minRequiredBuyers, // Fallback; replace with actual data if available
+          location: { en: location || "", ar: "" },
+          supplier: { en: supplierName || "", ar: supplierName || "" },
+          description: { en: termsAndNotes || "", ar: termsAndNotes },
+          termsAndNotes: { en: termsAndNotes || "", ar: "" },
+          notes: { en: "", ar: "" },
+          paymentInstructions: { en: "", ar: "" },
+          whatsappMessages: { en: "", ar: "" },
+          prefill: { en: "", ar: "" },
+          deliveryWindow: deliveryTimeframe || "",
+          // startDate: delivery ? new Date(delivery).toISOString().slice(0, 10) : "",
+          endDate: "", // Fallback; replace with actual endDate if available
+          unitId: "", // Fallback; replace with actual unitId if available
+          categoryId: "", // Fallback; replace with actual categoryId if available
+          status: "active", // Fallback; replace with actual status if available
+        }}
+        onClose={() => setShowEditModal(false)}
+        onUpdate={() => {
+          setShowEditModal(false);
+          // Optionally refresh data from parent
+        }}
+      />
       )}
 
 

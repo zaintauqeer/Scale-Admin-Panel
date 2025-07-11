@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 const AddCategoryModal = ({ closeModal }) => {
   const modalRef = useRef();

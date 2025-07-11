@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
+import Swal from "sweetalert2";
 
 const AddUnitsModal = ({ closeModal }) => {
   const modalRef = useRef();
@@ -99,7 +100,7 @@ const AddUnitsModal = ({ closeModal }) => {
           </button>
           <button
             onClick={handleSubmit}
-            className="px-4 py-2 bg-[#f15525] text-white rounded-sm hover:bg-[#d94e20]"
+            className="px-4 py-2 bg-[#f15525] text-white rounded-sm hover:bg-[#d94e20] cursor-pointer"
           >
             Submit
           </button>
