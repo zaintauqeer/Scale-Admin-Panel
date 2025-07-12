@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-
 export default function Forgot() {
   const [email, setEmail] = useState(""); // ✅ fixed: added missing email state
   const [loading, setLoading] = useState(false);
@@ -14,17 +13,20 @@ export default function Forgot() {
     e.preventDefault();
     setError("");
     setLoading(true);
-  
+
     try {
-      const res = await fetch("https://scale-gold.vercel.app/api/users/forgotPassword", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-  
+      const res = await fetch(
+        "https://scale-gold.vercel.app/api/users/forgotPassword",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email }),
+        }
+      );
+
       const data = await res.json();
       if (!res.ok) throw new Error(data.message || "Something went wrong");
-  
+
       localStorage.setItem("resetEmail", email); // ✅ store email before redirect
       router.push("/reset-password");
     } catch (err) {
@@ -33,7 +35,6 @@ export default function Forgot() {
       setLoading(false);
     }
   };
-  
 
   return (
     <div className="relative min-h-screen login-bg flex justify-center items-center">

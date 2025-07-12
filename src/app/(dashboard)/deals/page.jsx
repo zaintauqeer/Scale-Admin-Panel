@@ -87,7 +87,7 @@ const Page = () => {
     const now = new Date();
     const end = new Date(endDateStr);
     const diff = end - now;
-    if (diff <= 0) return "Expired";
+    if (diff <= 0) return "Completed";
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
     return `${days} days: ${hrs} hours`;
@@ -101,11 +101,16 @@ const Page = () => {
   );
 
 
+  //----------------------Edit Handler
   const handleEdit = (id) => {
-    router.push(`/deals/${id}`);
+    const dealToEdit = deals.find((deal) => deal._id === id);
+    if (dealToEdit) {
+      setSelectedDealToEdit(dealToEdit); // ✅ send full deal to modal
+    }
     setActiveMenuId(null);
     setTotalMenuId(null);
   };
+  
 
   const handleClose = (id) => {
     console.log("Close", id);
