@@ -131,6 +131,7 @@
 
 "use client";
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 const SoldTable = () => {
   const [data, setData] = useState([]);
@@ -138,21 +139,19 @@ const SoldTable = () => {
   const [search, setSearch] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const { data: session, status } = useSession();
 
   const fetchItems = async () => {
     try {
       setLoading(true);
-      const token = localStorage.getItem("authToken");
-      if (!token) {
-        throw new Error("Authentication token not found. Please login.");
-      }
-
+      const token = session?.user?.token;
+ 
       const res = await fetch("https://scale-gold.vercel.app/api/items/Sold", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
-        },
+        }, 
         body: JSON.stringify({}),
       });
 
@@ -174,8 +173,10 @@ const SoldTable = () => {
   };
 
   useEffect(() => {
-    fetchItems();
-  }, []);
+    if (session?.user?.token) {
+      fetchItems();
+    }
+  }, [session, status]);
 
   useEffect(() => {
     setFilteredData(

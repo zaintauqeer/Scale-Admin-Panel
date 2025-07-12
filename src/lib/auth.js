@@ -13,6 +13,8 @@ export async function loginAction(formData) {
       password,
     });
 
+    console.log(res)
+
     if (res?.error) {
       return { error: "Invalid credentials" };
     }

@@ -21,9 +21,9 @@ const getUserFromDb = async (identifier: string, password: string) => {
     if (data && data.user) {
       return {
         id: data.user.id,
-        name: data.user.name || data.user.identifier,
-        identifier: data.user.identifier,
-        image: data.user.image || null,
+        name: data.user.username,
+        email: data.user.email,
+        token: data.token,
       };
     }
 

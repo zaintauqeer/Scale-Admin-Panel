@@ -34,4 +34,28 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.email = user.email;
+        token.token = user.token; // 👈 save JWT token in the token payload
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token) {
+        session.user.id = token.id;
+        session.user.email = token.email;
+        session.user.token = token.token; // 👈 expose it in session
+      }
+      return session;
+    },
+  },
+  session: {
+    strategy: "jwt",
+  },
+  pages: {
+    signIn: "/login", // Ensure this matches your login page route
+  },
 })

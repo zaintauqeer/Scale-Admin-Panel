@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect } from "react";
 import CreateDealModal from "@/app/components/dealmodal";
 import CloseDealModal from "@/app/components/closedeal";
 import EditDealComponent from "@/app/components/editdeal";
-import ProtectedRoute from "@/app/components/protectedroute";
 import { useRouter } from "next/navigation";
 
 import Link from "next/link";
@@ -118,7 +117,6 @@ const Page = () => {
   };
 
   return (
-    <ProtectedRoute>
       <div>
         <div className="flex justify-between items-center mb-6">
           <h3 className="text-xl font-medium text-black">Manage Deals</h3>
@@ -135,30 +133,6 @@ const Page = () => {
         {showModal && (
           <CreateDealModal closeModal={() => setShowModal(false)} />
         )}
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-6">
-          <div className="w-full">
-            <img
-              src="/card1.png"
-              alt="card1"
-              className="w-full h-auto rounded-sm "
-            />
-          </div>
-          <div className="w-full">
-            <img
-              src="/card2.png"
-              alt="card2"
-              className="w-full h-auto rounded-sm"
-            />
-          </div>
-          <div className="w-full">
-            <img
-              src="/card3.png"
-              alt="card3"
-              className="w-full h-auto rounded-sm"
-            />
-          </div>
-        </div>
 
         <div className="border-1 border-[#DDDDDD] p-3 mt-4 rounded-sm">
           <div className="flex justify-between items-center mb-4">
@@ -481,7 +455,6 @@ const Page = () => {
           />
         )}
       </div>
-    </ProtectedRoute>
   );
 };
 

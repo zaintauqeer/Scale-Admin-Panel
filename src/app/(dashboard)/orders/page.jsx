@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import AddOrderModal from "@/app/components/addorders";
+import { useSession } from "next-auth/react";
 
 const OrdersTable = () => {
   const [orders, setOrders] = useState([]);
@@ -9,8 +10,11 @@ const OrdersTable = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const { data: session, status } = useSession();
 
   const fetchOrders = async () => {
+    const token = await session?.user?.token;
+    console.log(token)
     try {
       setLoading(true);
       const res = await fetch(
@@ -19,6 +23,7 @@ const OrdersTable = () => {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
+             Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -41,8 +46,10 @@ const OrdersTable = () => {
   };
 
   useEffect(() => {
-    fetchOrders();
-  }, []);
+    if (session?.user?.token) {
+      fetchOrders();
+    }
+  }, [session, status]);
 
   useEffect(() => {
     setFilteredOrders(

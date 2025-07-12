@@ -22,7 +22,7 @@ export default function Login() {
       setError(result.error);
     } else {
       // Redirect on successful login
-      router.push("/"); // Replace with your desired redirect path
+      router.push("/");
     }
   };
 
