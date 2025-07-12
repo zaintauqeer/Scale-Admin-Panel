@@ -1,29 +1,3 @@
-// "use client";
-
-// import { useEffect, useState } from "react";
-// import { useRouter } from "next/navigation";
-
-// export default function ProtectedRoute({ children }) {
-//   const router = useRouter();
-//   const [authChecked, setAuthChecked] = useState(false);
-
-//   useEffect(() => {
-//     const token = localStorage.getItem("authToken");
-//     if (!token) {
-//       router.replace("/login");
-//     } else {
-//       setAuthChecked(true); // ✅ Only show content when confirmed
-//     }
-//   }, []);
-
-//   if (!authChecked) return null; // ⛔ Don't show anything during check
-
-//   return <>{children}</>;
-// }
-
-
-
-
 "use client";
 
 import { useEffect, useState } from "react";

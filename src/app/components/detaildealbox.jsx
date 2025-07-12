@@ -3,57 +3,60 @@ import React, { useState } from "react";
 import CloseDealModal from "./closedeal";
 import EditDealComponent from "./editdeal";
 
-const DetailDealBox = ({
-  _id,
-  image,
-  images = [],
-  title,
-  price,
-  pricePerUnit,
-  timeLeft,
-  progress,
-  location,
-  supplierName,
-  minOrder,
-  deliveryTimeframe,
-  termsAndNotes,
-  delivery,
-}) => {
-  // Validate image
-  const safeImage = image || "/placeholder-image.jpg"; // Fallback image
-  const gallery = [
-    safeImage,
-    ...images.filter((src) => src && src !== safeImage),
-  ];
+const DetailDealBox = ({ deal }) => {
+  const {
+    _id,
+    featureImage,
+    images = [],
+    title,
+    pricePerUnit,
+    marketPrice,
+    location,
+    supplier,
+    minorder,
+    quantityOrder,
+    termsAndNotes,
+    description,
+    notes,
+    startDate,
+    endDate,
+    deliveryWindow,
+    unitId,
+    categoryId,
+    status,
+    paymentInstructions,
+    whatsappMessages,
+    prefilledMessages,
+  } = deal;
 
-  // Main image state
+  const safeImage = featureImage || "/placeholder-image.jpg";
+  const gallery = [safeImage, ...images.filter((src) => src && src !== safeImage)];
+
   const [mainImage, setMainImage] = useState(safeImage);
-
   const [showEditModal, setShowEditModal] = useState(false);
   const [showCloseModal, setShowCloseModal] = useState(false);
+
+  const progress = Math.min((minorder / quantityOrder) * 100, 100).toFixed(0);
+  const timeLeft = getTimeLeft(endDate);
 
   return (
     <div className="lg:px-1 px-5 py-6">
       <div className="flex mb-6">
         <h2 className="text-xl font-medium text-black">Deal Details</h2>
       </div>
-      {/* -- Two-column layout: Images + Info -- */}
+
       <div className="flex flex-col lg:flex-row gap-x-10">
-        {/* -- Images section -- */}
+        {/* Images */}
         <div className="flex flex-col gap-5 w-full lg:w-6/12" dir="ltr">
-          {/* Large preview */}
           <div className="bg-[#CCCCCC] rounded-sm overflow-hidden aspect-square flex items-center justify-center">
             <img
               src={mainImage}
-              alt={title || "Deal image"}
+              alt={title?.en || "Deal image"}
               className="object-contain max-h-3/4"
-              onError={(e) => {
-                e.target.src = "/placeholder-image.jpg";
-              }}
+              onError={(e) => (e.target.src = "/placeholder-image.jpg")}
             />
           </div>
 
-          {/* Thumbnails */}
           <div className="flex gap-2 overflow-x-auto pb-2">
             {gallery.map((src, idx) => (
               <button
@@ -68,71 +71,46 @@ const DetailDealBox = ({
                   src={src}
                   alt="Preview"
                   className="h-3/4 object-cover"
-                  onError={(e) => {
-                    e.target.src = "/placeholder-image.jpg";
-                  }}
+                  onError={(e) => (e.target.src = "/placeholder-image.jpg")}
                 />
               </button>
             ))}
           </div>
         </div>
 
-        {/* -- Information section -- */}
+        {/* Info */}
         <div className="gap-5 lg:w-6/12">
-          {/* Title & price */}
           <div className="flex justify-between items-center pb-5 border-b border-[#DDDDDD]">
-            <h2 className="text-2xl lg:text-[32px] font-bold text-black">
-              {title || "Untitled Deal"}
-            </h2>
+            <h2 className="text-2xl lg:text-[32px] font-bold text-black">{title?.en || "Untitled Deal"}</h2>
             <span className="flex items-center gap-2 text-xl font-semibold text-[#F05526] whitespace-nowrap">
               <img src="/Clock.svg" alt="clock" className="w-5 h-5" />
-              {timeLeft || "N/A"}
+              {timeLeft}
             </span>
           </div>
 
-          {/* Key facts */}
           <div className="mt-12 flex flex-col gap-5 text-[20px] font-medium text-[#666666]">
-            <InfoRow label="Supplier" value={supplierName || "N/A"} />
-            <InfoRow label="Delivery Area" value={location || "N/A"} />
-            <InfoRow label="Minimum Order Quantity" value={minOrder || "N/A"} />
-            <InfoRow
-              label="Committed Value"
-              value={minOrder ? `${minOrder}` : "N/A"}
-              highlight
-            />
-            <InfoRow label="Price per Unit" value={pricePerUnit || "N/A"} />
-            <InfoRow
-              label="Est. Delivery Window"
-              value={deliveryTimeframe || "N/A"}
-            />
+            <InfoRow label="Supplier" value={supplier?.en} />
+            <InfoRow label="Delivery Area" value={location?.en} />
+            <InfoRow label="Minimum Order Quantity" value={minorder} />
+            <InfoRow label="Committed Value" value={minorder} highlight />
+            <InfoRow label="Price per Unit" value={`${pricePerUnit} SAR`} />
+            <InfoRow label="Est. Delivery Window" value={deliveryWindow || `${formatDate(startDate)} — ${formatDate(endDate)}`} />
           </div>
 
-          {/* Progress bar */}
           <div className="flex items-center gap-4 mt-6">
             <div className="w-full h-[14px] bg-gray-200 rounded-full">
-              <div
-                className="h-full bg-[#F05526] rounded-full"
-                style={{
-                  width: `${Math.min(Math.max(progress || 0, 0), 100)}%`,
-                }}
-              />
+              <div className="h-full bg-[#F05526] rounded-full" style={{ width: `${progress}%` }} />
             </div>
-            <span className="text-lg font-semibold text-[#444444]">
-              {progress || 0}%
-            </span>
+            <span className="text-lg font-semibold text-[#444444]">{progress}%</span>
           </div>
         </div>
       </div>
 
-      {/* -- Terms & Actions section below all content -- */}
+      {/* Notes */}
       <div className="mt-10">
         <div className="flex flex-col text-xl font-medium text-[#666666]">
-          <label htmlFor="" className="text-black text-2xl">
-            Notes
-          </label>
-          <span className="text-xl">
-            {termsAndNotes || "No notes available"}
-          </span>
+          <label className="text-black text-2xl">Notes</label>
+          <span className="text-xl">{termsAndNotes?.en || "No notes available"}</span>
         </div>
 
         <div className="flex gap-4 mt-12 justify-center items-center">
@@ -151,50 +129,16 @@ const DetailDealBox = ({
         </div>
       </div>
 
-
-      {/*---------------------------------- Edit Deal Modal------------------------------------- */}
-
-
+      {/* Edit Modal */}
       {showEditModal && (
         <EditDealComponent
-        deal={{
-          _id: _id || "",
-          featureImage: safeImage || null,
-          images: Array.isArray(images) ? images.filter((src) => src && src !== safeImage) : [],
-          title: { en: title || "", ar: title ||"" },
-          marketPrice: price ? String(price) : "",
-          pricePerUnit: pricePerUnit ? String(pricePerUnit) : "",
-          minorder: minOrder ? String(minOrder) : "",
-          quantityOrder: minOrder ? String(minOrder) : "", // Fallback; replace with actual quantityOrder if available
-          minRequiredBuyers: minRequiredBuyers, // Fallback; replace with actual data if available
-          location: { en: location || "", ar: "" },
-          supplier: { en: supplierName || "", ar: supplierName || "" },
-          description: { en: termsAndNotes || "", ar: termsAndNotes },
-          termsAndNotes: { en: termsAndNotes || "", ar: "" },
-          notes: { en: "", ar: "" },
-          paymentInstructions: { en: "", ar: "" },
-          whatsappMessages: { en: "", ar: "" },
-          prefill: { en: "", ar: "" },
-          deliveryWindow: deliveryTimeframe || "",
-          // startDate: delivery ? new Date(delivery).toISOString().slice(0, 10) : "",
-          endDate: "", // Fallback; replace with actual endDate if available
-          unitId: "", // Fallback; replace with actual unitId if available
-          categoryId: "", // Fallback; replace with actual categoryId if available
-          status: "active", // Fallback; replace with actual status if available
-        }}
-        onClose={() => setShowEditModal(false)}
-        onUpdate={() => {
-          setShowEditModal(false);
-          // Optionally refresh data from parent
-        }}
-      />
+          deal={deal}
+          onClose={() => setShowEditModal(false)}
+          onUpdate={() => setShowEditModal(false)}
+        />
       )}
 
-
- {/*---------------------------------- Close Deal Modal------------------------------------- */}
-
-
- 
+      {/* Close Modal */}
       {showCloseModal && (
         <CloseDealModal
           onClose={() => setShowCloseModal(false)}
@@ -202,16 +146,15 @@ const DetailDealBox = ({
             try {
               const token = localStorage.getItem("authToken");
               if (!token) throw new Error("Authentication token missing");
-              const res = await fetch(
-                `https://scale-gold.vercel.app/api/items/Itemdelete/${_id}`,
-                {
-                  method: "DELETE",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                  },
-                }
-              );
+
+              const res = await fetch(`https://scale-gold.vercel.app/api/items/Itemdelete/${_id}`, {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`,
+                },
+              });
+
               if (!res.ok) throw new Error("Failed to delete deal");
               console.log("Deal deleted successfully");
             } catch (err) {
@@ -227,14 +170,28 @@ const DetailDealBox = ({
   );
 };
 
-/* ---------- Small reusable row ----------------------------------------- */
+/* Helpers */
 const InfoRow = ({ label, value, highlight }) => (
   <div className="flex justify-between gap-x-3">
     <span className="text-[#666666]">{label}:</span>
-    <span className={highlight ? "text-[#F05526]" : "text-[#222222]"}>
-      {value || "N/A"}
-    </span>
+    <span className={highlight ? "text-[#F05526]" : "text-[#222222]"}>{value || "N/A"}</span>
   </div>
 );
+
+const formatDate = (dateStr) => {
+  return new Date(dateStr).toLocaleDateString("en-GB", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+};
+
+const getTimeLeft = (endStr) => {
+  const diff = new Date(endStr) - new Date();
+  if (diff <= 0) return "Completed";
+  const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  return `${d} days:${h} hours`;
+};
 
 export default DetailDealBox;

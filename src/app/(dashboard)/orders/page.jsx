@@ -90,7 +90,7 @@ const OrdersTable = () => {
               <th className="py-2 px-4">Customer Name</th>
               <th className="py-2 px-4">Product</th>
               <th className="py-2 px-4">Quantity</th>
-              <th className="py-2 px-4">Price</th>
+              <th className="py-2 px-4">Total Amount</th>
               <th className="py-2 px-4">Contact</th>
               <th className="py-2 px-4">Email</th>
               <th className="py-2 px-4">Order Date</th>
@@ -133,7 +133,7 @@ const OrdersTable = () => {
                     {order.quantity}
                   </td>
                   <td className="py-2 px-4 text-black text-center">
-                    {order.pricePerUnit}
+                    {order.pricePerUnit*order.quantity}
                   </td>
                   <td className="py-2 px-4 text-black text-center">
                     {order.contactNumber}

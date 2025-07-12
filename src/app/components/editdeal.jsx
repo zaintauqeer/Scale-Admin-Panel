@@ -1,656 +1,3 @@
-
-
-
-// "use client";
-// import React, { useRef, useState, useEffect } from "react";
-
-// const EditDealComponent = ({ deal, onClose, onUpdate }) => {
-//   /* ---------- refs ---------- */
-//   const fileFeatureRef = useRef();
-//   const fileImagesRef = useRef();
-
-//   /* ---------- state ---------- */
-//   const [imagePreview, setImagePreview] = useState(null);
-//   const [featureImage, setFeatureImage] = useState(null);
-//   const [images, setImages] = useState([]);
-
-//   const [title, setTitle] = useState("");
-//   const [marketPrice, setMarketPrice] = useState("");
-//   const [pricePerUnit, setPricePerUnit] = useState("");
-//   const [minOrderQty, setMinOrderQty] = useState("");
-//   const [quantityOrder, setQuantityOrder] = useState("");
-//   const [minBuyers, setMinBuyers] = useState("");
-
-//   const [supplierEn, setSupplierEn] = useState("");
-//   const [supplierAr, setSupplierAr] = useState("");
-//   const [paymentEn, setPaymentEn] = useState("");
-//   const [paymentAr, setPaymentAr] = useState("");
-//   const [deliveryWindow, setDeliveryWindow] = useState("");
-//   const [deliveryArea, setDeliveryArea] = useState("");
-//   const [startDate, setStartDate] = useState("");
-//   const [endDate, setEndDate] = useState(""); // Fixed: Corrected syntax
-
-//   const [descriptionEn, setDescriptionEn] = useState("");
-//   const [descriptionAr, setDescriptionAr] = useState("");
-//   const [terms, setTerms] = useState("");
-//   const [notes, setNotes] = useState("");
-//   const [whatsappEn, setWhatsappEn] = useState("");
-//   const [whatsappAr, setWhatsappAr] = useState("");
-//   const [prefillEn, setPrefillEn] = useState("");
-//   const [prefillAr, setPrefillAr] = useState("");
-
-//   const modalRef = useRef();
-
-//   /* ---------- component mount debug ---------- */
-//   useEffect(() => {
-//     console.log("🌟 EditDealComponent mounted at 04:35 PM PKT, July 08, 2025 with deal:", deal);
-//     if (!deal || typeof deal !== "object" || Array.isArray(deal)) {
-//       console.log("⚠️ Invalid deal prop at 04:35 PM PKT, July 08, 2025:", deal);
-//       return;
-//     }
-
-//     console.log("✅ Deal loaded at 04:35 PM PKT, July 08, 2025:", deal);
-
-//     // Debug each field
-//     console.log("🟢 title.en:", deal.title?.en);
-//     console.log("🟢 marketPrice:", deal.marketPrice);
-//     console.log("🟢 pricePerUnit:", deal.pricePerUnit);
-//     console.log("🟢 minorder:", deal.minorder);
-//     console.log("🟢 quantityOrder:", deal.quantityOrder);
-//     console.log("🟢 minRequiredBuyers:", deal.minRequiredBuyers);
-//     console.log("🟢 supplier.en:", deal.supplier?.en);
-//     console.log("🟢 supplier.ar:", deal.supplier?.ar);
-//     console.log("🟢 description.en:", deal.description?.en);
-//     console.log("🟢 description.ar:", deal.description?.ar);
-//     console.log("🟢 termsAndNotes.en:", deal.termsAndNotes?.en);
-//     console.log("🟢 termsAndNotes.ar:", deal.termsAndNotes?.ar);
-//     console.log("🟢 paymentInstructions.en:", deal.paymentInstructions?.en);
-//     console.log("🟢 paymentInstructions.ar:", deal.paymentInstructions?.ar);
-//     console.log("🟢 whatsappMessages.en:", deal.whatsappMessages?.en);
-//     console.log("🟢 whatsappMessages.ar:", deal.whatsappMessages?.ar);
-//     console.log("🟢 prefilledMessages.en:", deal.prefilledMessages?.en);
-//     console.log("🟢 prefilledMessages.ar:", deal.prefilledMessages?.ar);
-//     console.log("🟢 deliveryWindow:", deal.deliveryWindow);
-//     console.log("🟢 location.en:", deal.location?.en);
-//     console.log("🟢 startDate:", deal.startDate);
-//     console.log("🟢 endDate:", deal.endDate);
-//     console.log("🟢 featureImage:", deal.featureImage);
-//     console.log("🟢 images:", deal.images);
-
-//     // Images
-//     setImagePreview(deal.featureImage || null);
-//     setFeatureImage(deal.featureImage || null);
-//     setImages(Array.isArray(deal.images) ? deal.images : []);
-
-//     // Basic info
-//     setTitle(deal.title?.en || "");
-//     setMarketPrice(deal.marketPrice?.toString() || "");
-//     setPricePerUnit(deal.pricePerUnit?.toString() || "");
-//     setMinOrderQty(deal.minorder?.toString() || "");
-//     setQuantityOrder(deal.quantityOrder?.toString() || "");
-//     setMinBuyers(deal.minRequiredBuyers?.toString() || "");
-
-//     // Supplier
-//     setSupplierEn(deal.supplier?.en || "");
-//     setSupplierAr(deal.supplier?.ar || "");
-
-//     // Description
-//     setDescriptionEn(deal.description?.en || "");
-//     setDescriptionAr(deal.description?.ar || "");
-
-//     // Terms and Notes
-//     setTerms(deal.termsAndNotes?.en || "");
-//     setNotes(deal.termsAndNotes?.ar || "");
-
-//     // Payment instructions
-//     setPaymentEn(deal.paymentInstructions?.en || "");
-//     setPaymentAr(deal.paymentInstructions?.ar || "");
-
-//     // WhatsApp messages
-//     setWhatsappEn(deal.whatsappMessages?.en || "");
-//     setWhatsappAr(deal.whatsappMessages?.ar || "");
-
-//     // Prefilled messages
-//     setPrefillEn(deal.prefilledMessages?.en || "");
-//     setPrefillAr(deal.prefilledMessages?.ar || "");
-
-//     // Delivery and dates
-//     setDeliveryWindow(deal.deliveryWindow?.toString() || "");
-//     setDeliveryArea(deal.location?.en || "");
-
-//     // Date formatting
-//     const formatDate = (dateString) => {
-//       if (!dateString) return "";
-//       const date = new Date(dateString);
-//       return isNaN(date.getTime()) ? "" : date.toISOString().slice(0, 10);
-//     };
-//     setStartDate(formatDate(deal.startDate));
-//     setEndDate(formatDate(deal.endDate));
-//   }, [deal]);
-
-//   /* ---------- handlers ---------- */
-//   const triggerFeatureInput = () => fileFeatureRef.current?.click();
-//   const triggerImagesInput = () => fileImagesRef.current?.click();
-
-//   const handleFeatureChange = (e) => {
-//     const file = e.target.files[0];
-//     if (!file) return;
-//     setFeatureImage(file);
-//     setImagePreview(URL.createObjectURL(file));
-//   };
-
-//   const handleRemoveFeature = () => {
-//     setFeatureImage(null);
-//     setImagePreview(null);
-//     if (fileFeatureRef.current) fileFeatureRef.current.value = null;
-//   };
-
-//   const handleImagesChange = (e) => {
-//     const newFiles = Array.from(e.target.files || []);
-//     setImages((prev) => [...prev, ...newFiles]);
-//     if (fileImagesRef.current) fileImagesRef.current.value = null;
-//   };
-
-//   const removeImage = (idx) => {
-//     setImages((prev) => prev.filter((_, i) => i !== idx));
-//   };
-
-//   /* ---------- submit ---------- */
-//   const handleSubmit = async () => {
-//     try {
-//       const token = localStorage.getItem("authToken");
-//       if (!token) return alert("Please log in first.");
-
-//       const formData = new FormData();
-
-//       // Text fields
-//       formData.append("titleEn", title);
-//       formData.append("titleAr", title);
-//       formData.append("locationEn", deliveryArea || "Riyadh, Saudi Arabia");
-//       formData.append("locationAr", "الرياض، السعودية");
-//       formData.append("minorder", String(minOrderQty));
-//       formData.append("minRequiredBuyers", String(minBuyers));
-//       formData.append("quantityOrder", String(quantityOrder));
-//       formData.append("pricePerUnit", pricePerUnit);
-//       formData.append("supplierEn", supplierEn);
-//       formData.append("supplierAr", supplierAr);
-//       formData.append("descriptionEn", descriptionEn);
-//       formData.append("descriptionAr", descriptionAr);
-
-//       // Use correct API keys
-//       formData.append("termsAndNotesEn", terms);
-//       formData.append("termsAndNotesAr", notes);
-//       formData.append("paymentInstructionsEn", paymentEn);
-//       formData.append("paymentInstructionsAr", paymentAr);
-//       formData.append("prefilledMessagesEn", prefillEn);
-//       formData.append("prefilledMessagesAr", prefillAr);
-//       formData.append("whatsappMessagesEn", whatsappEn);
-//       formData.append("whatsappMessagesAr", whatsappAr);
-
-//       formData.append("deliveryWindow", deliveryWindow);
-//       formData.append("startDate", startDate);
-//       formData.append("endDate", endDate);
-
-//       // Feature image
-//       if (featureImage instanceof File) {
-//         formData.append("featureImage", featureImage);
-//       }
-
-//       // If feature image was removed
-//       if (!featureImage) {
-//         formData.append("removeFeatureImage", "true");
-//       }
-
-//       // Append newly selected images
-//       images.forEach((img) => {
-//         if (img instanceof File) formData.append("images", img);
-//       });
-
-//       // Keep existing image URLs
-//       const keptImageUrls = images.filter((img) => typeof img === "string");
-//       formData.append("existingImages", JSON.stringify(keptImageUrls));
-
-//       const res = await fetch(
-//         `https://scale-gold.vercel.app/api/items/Updateitems/${deal._id}`,
-//         {
-//           method: "PUT",
-//           headers: { Authorization: `Bearer ${token}` },
-//           body: formData,
-//         }
-//       );
-
-//       const data = await res.json().catch(() => ({}));
-//       if (!res.ok) throw new Error(data.message || `Error ${res.status}`);
-//       console.log("data here", data);
-
-//       alert("Deal updated successfully!");
-//       if (onUpdate) onUpdate();
-//       onClose();
-//     } catch (err) {
-//       alert(err.message);
-//     }
-//   };
-
-//   useEffect(() => {
-//     const handleClickOutside = (event) => {
-//       if (modalRef.current && !modalRef.current.contains(event.target)) {
-//         onClose();
-//       }
-//     };
-//     document.addEventListener("mousedown", handleClickOutside);
-//     return () => {
-//       document.removeEventListener("mousedown", handleClickOutside);
-//     };
-//   }, [onClose]);
-
-//   /* ---------- JSX ---------- */
-//   return (
-//     <div
-//       className="fixed inset-0 flex justify-center items-center z-50 px-4"
-//       style={{ backgroundColor: "rgba(0,0,0,0.8)" }}
-//     >
-//       <div
-//         className="bg-white w-full max-w-[610px] max-h-[90vh] overflow-y-auto rounded-sm"
-//         ref={modalRef}
-//       >
-//         <h2 className="text-xl mb-4 font-medium border-b border-gray-300 px-4 py-3 text-black">
-//           Edit Deal
-//         </h2>
-
-//         <div className="bg-white m-4 p-4 border border-gray-300 rounded-sm relative">
-//           {/* ---------- Feature Image ---------- */}
-//           <div className="flex items-center gap-4 mb-6 justify-center">
-//             {imagePreview && (
-//               <div className="relative w-28 h-28 border-2 border-gray-300 rounded flex items-center justify-center overflow-hidden">
-//                 <div
-//                   className="relative w-24 h-24 bg-gray-100 rounded flex items-center justify-center overflow-hidden"
-//                   style={{ boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)" }}
-//                 >
-//                   <img
-//                     src={imagePreview}
-//                     alt="preview"
-//                     className="object-contain w-20 h-20"
-//                   />
-//                   <button
-//                     type="button"
-//                     onClick={handleRemoveFeature}
-//                     className="absolute -top-1 -right-1 bg-red-600 text-white rounded-full w-5 h-5 text-xs flex items-center justify-center"
-//                   >
-//                     ×
-//                   </button>
-//                 </div>
-//               </div>
-//             )}
-//             <div
-//               onClick={triggerFeatureInput}
-//               className="w-28 h-28 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-[#8c8c8c]"
-//             >
-//               <div className="text-center select-none">
-//                 <div className="text-xl font-semibold">+</div>
-//                 <div className="text-sm">Upload</div>
-//               </div>
-//               <input
-//                 type="file"
-//                 accept="image/*"
-//                 ref={fileFeatureRef}
-//                 onChange={handleFeatureChange}
-//                 className="hidden"
-//               />
-//             </div>
-//           </div>
-
-//           {/* ---------- Extra Images Grid ---------- */}
-//           <div className="mb-6">
-//             <div className="flex flex-wrap gap-2 justify-center">
-//               {images.map((img, idx) => (
-//                 <div
-//                   key={idx}
-//                   className="relative w-10 h-10 border border-gray-300 rounded overflow-hidden"
-//                   style={{ boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)" }}
-//                 >
-//                   <img
-//                     src={
-//                       typeof img === "string" ? img : URL.createObjectURL(img)
-//                     }
-//                     alt={`img-${idx}`}
-//                     className="object-contain flex items-center justify-center w-8 h-8"
-//                   />
-//                   <button
-//                     type="button"
-//                     onClick={() => removeImage(idx)}
-//                     className="absolute -top-0 -right-0 bg-red-600 text-white rounded-full w-3 h-3 text-xs flex items-center justify-center"
-//                   >
-//                     ×
-//                   </button>
-//                 </div>
-//               ))}
-//               <div
-//                 onClick={triggerImagesInput}
-//                 className="w-10 h-10 border-2 border-dashed border-gray-300 rounded flex items-center justify-center cursor-pointer text-[#8c8c8c]"
-//               >
-//                 <span className="text-xl select-none">+</span>
-//                 <input
-//                   type="file"
-//                   multiple
-//                   accept="image/*"
-//                   ref={fileImagesRef}
-//                   onChange={handleImagesChange}
-//                   className="hidden"
-//                 />
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* ------------ TITLE ------------ */}
-//           <div className="grid gap-6 mb-6">
-//             <div>
-//               <label className="text-[#8c8c8c] text-sm">Deal Title</label>
-//               <input
-//                 type="text"
-//                 value={title}
-//                 onChange={(e) => setTitle(e.target.value)}
-//                 placeholder="Deal title"
-//                 className="border p-2 rounded text-sm w-full text-black"
-//               />
-//             </div>
-
-//             {/* ------------ Pricing row ------------ */}
-//             <div className="flex flex-col md:flex-row gap-4">
-//               <div className="flex-1">
-//                 <label className="text-[#8c8c8c] text-sm">Market Price</label>
-//                 <input
-//                   type="text"
-//                   value={marketPrice}
-//                   onChange={(e) => setMarketPrice(e.target.value)}
-//                   placeholder="Market Price"
-//                   className="border p-2 rounded text-sm w-full text-black"
-//                 />
-//               </div>
-//               <div className="flex-1">
-//                 <label className="text-[#8c8c8c] text-sm">Price per unit</label>
-//                 <input
-//                   type="text"
-//                   value={pricePerUnit}
-//                   onChange={(e) => setPricePerUnit(e.target.value)}
-//                   placeholder="Price per unit"
-//                   className="border p-2 rounded text-sm w-full text-black"
-//                 />
-//               </div>
-//             </div>
-
-//             {/* ------------ Quantity / Supplier row ------------ */}
-//             <div className="flex flex-col md:flex-row gap-4">
-//               <div className="flex-1">
-//                 <label className="text-[#8c8c8c] text-sm">
-//                   Minimum order quantity
-//                 </label>
-//                 <input
-//                   type="text"
-//                   value={minOrderQty}
-//                   onChange={(e) => setMinOrderQty(e.target.value)}
-//                   placeholder="Minimum order quantity"
-//                   className="border p-2 rounded text-sm w-full text-black"
-//                 />
-//               </div>
-//               <div className="flex-1">
-//                 <label className="text-[#8c8c8c] text-sm">
-//                   Quantity per buyer
-//                 </label>
-//                 <input
-//                   type="text"
-//                   value={quantityOrder}
-//                   onChange={(e) => setQuantityOrder(e.target.value)}
-//                   placeholder="Quantity per buyer"
-//                   className="border p-2 rounded text-sm w-full text-black"
-//                 />
-//               </div>
-//               <div className="flex-1">
-//                 <label className="text-[#8c8c8c] text-sm">
-//                   Minimum required buyers
-//                 </label>
-//                 <input
-//                   type="text"
-//                   value={minBuyers}
-//                   onChange={(e) => setMinBuyers(e.target.value)}
-//                   placeholder="Min required buyers"
-//                   className="border p-2 rounded text-sm w-full text-black"
-//                 />
-//               </div>
-//             </div>
-
-//             {/* ------------ Supplier row ------------ */}
-//             <div className="flex flex-col md:flex-row gap-4">
-//               <div className="flex-1">
-//                 <label className="text-[#8c8c8c] text-sm">Supplier (EN)</label>
-//                 <input
-//                   type="text"
-//                   value={supplierEn}
-//                   onChange={(e) => setSupplierEn(e.target.value)}
-//                   placeholder="Supplier name in English"
-//                   className="border p-2 rounded text-sm w-full text-black"
-//                 />
-//               </div>
-//               <div className="flex-1">
-//                 <label className="text-[#8c8c8c] text-sm">Supplier (AR)</label>
-//                 <input
-//                   type="text"
-//                   value={supplierAr}
-//                   onChange={(e) => setSupplierAr(e.target.value)}
-//                   placeholder="اسم المورد بالعربية"
-//                   className="border p-2 rounded text-sm w-full text-black"
-//                 />
-//               </div>
-//             </div>
-//           </div>
-
-//           {/* ------------ Delivery Window ------------ */}
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">
-//               Estimated Delivery Window
-//             </label>
-//             <input
-//               type="text"
-//               value={deliveryWindow}
-//               onChange={(e) => setDeliveryWindow(e.target.value)}
-//               placeholder="Estimated Delivery Window"
-//               className="border p-2 rounded text-sm w-full text-black"
-//             />
-//           </div>
-
-//           {/* ------------ Delivery Area & Dates ------------ */}
-//           <div className="flex flex-col md:flex-row gap-4 mb-6">
-//             <div className="flex-1">
-//               <label className="text-[#8c8c8c] text-sm block">Delivery Area</label>
-//               <input
-//                 type="text"
-//                 value={deliveryArea}
-//                 onChange={(e) => setDeliveryArea(e.target.value)}
-//                 className="border p-2 rounded text-sm w-full text-black"
-//               />
-//             </div>
-//             <div className="flex-1">
-//               <label className="text-[#8c8c8c] text-sm block">Start Date</label>
-//               <input
-//                 type="date"
-//                 value={startDate}
-//                 onChange={(e) => setStartDate(e.target.value)}
-//                 className="border p-2 rounded text-sm w-full text-black"
-//               />
-//             </div>
-//             <div className="flex-1">
-//               <label className="text-[#8c8c8c] text-sm block">End Date</label>
-//               <input
-//                 type="date"
-//                 value={endDate}
-//                 onChange={(e) => setEndDate(e.target.value)}
-//                 className="border p-2 rounded text-sm w-full text-black"
-//               />
-//             </div>
-//           </div>
-
-//           {/* ------------ Description ------------ */}
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">Description (EN)</label>
-//             <textarea
-//               value={descriptionEn}
-//               onChange={(e) => setDescriptionEn(e.target.value)}
-//               placeholder="Add Description"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">الوصف (AR)</label>
-//             <textarea
-//               value={descriptionAr}
-//               onChange={(e) => setDescriptionAr(e.target.value)}
-//               placeholder="أضف وصفًا"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-
-//           {/* ------------ Notes ------------ */}
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">Add Notes</label>
-//             <textarea
-//               value={notes}
-//               onChange={(e) => setNotes(e.target.value)}
-//               placeholder="Add Notes"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-
-//           {/* ------------ Terms ------------ */}
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">Terms & Conditions</label>
-//             <textarea
-//               value={terms}
-//               onChange={(e) => setTerms(e.target.value)}
-//               placeholder="Add Terms & Conditions"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-
-//           {/* ------------ Payment instructions ------------ */}
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">
-//               Payment Instructions (EN)
-//             </label>
-//             <textarea
-//               value={paymentEn}
-//               onChange={(e) => setPaymentEn(e.target.value)}
-//               placeholder="Payment Instructions"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">تعليمات الدفع (AR)</label>
-//             <textarea
-//               value={paymentAr}
-//               onChange={(e) => setPaymentAr(e.target.value)}
-//               placeholder="تعليمات الدفع"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-
-//           {/* ------------ Prefilled messages ------------ */}
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">
-//               Prefilled message (EN)
-//             </label>
-//             <textarea
-//               value={prefillEn}
-//               onChange={(e) => setPrefillEn(e.target.value)}
-//               placeholder="Prefilled message"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">
-//               الرسالة المعبأة مسبقًا (AR)
-//             </label>
-//             <textarea
-//               value={prefillAr}
-//               onChange={(e) => setPrefillAr(e.target.value)}
-//               placeholder="رسالة واتساب عربية"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-
-//           {/* ------------ WhatsApp share message ------------ */}
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">
-//               WhatsApp Message (EN)
-//             </label>
-//             <textarea
-//               value={whatsappEn}
-//               onChange={(e) => setWhatsappEn(e.target.value)}
-//               placeholder="WhatsApp message in English"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-
-//           <div className="mb-6">
-//             <label className="text-[#8c8c8c] text-sm">رسالة واتساب (AR)</label>
-//             <textarea
-//               value={whatsappAr}
-//               onChange={(e) => setWhatsappAr(e.target.value)}
-//               placeholder="رسالة واتساب بالعربية"
-//               className="border p-2 w-full rounded text-sm text-black"
-//               rows={2}
-//             />
-//           </div>
-//         </div>
-
-//         <div className="flex justify-end gap-3 px-4 py-4">
-//           <button
-//             onClick={onClose}
-//             className="px-4 py-2 border border-gray-400 rounded text-[16px] text-black"
-//           >
-//             Cancel
-//           </button>
-//           <button
-//             onClick={handleSubmit}
-//             className="px-4 py-2 bg-[#f15525] text-white rounded text-[16px]"
-//           >
-//             Save Changes
-//           </button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default EditDealComponent;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import Swal from "sweetalert2";
@@ -673,7 +20,10 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
   const [minBuyers, setMinBuyers] = useState("");
   const [location, setLocation] = useState({ en: "", ar: "" });
   const [supplier, setSupplier] = useState({ en: "", ar: "" });
-  const [paymentInstructions, setPaymentInstructions] = useState({ en: "", ar: "" });
+  const [paymentInstructions, setPaymentInstructions] = useState({
+    en: "",
+    ar: "",
+  });
   const [deliveryWindow, setDeliveryWindow] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -681,7 +31,10 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
   const [termsAndNotes, setTermsAndNotes] = useState({ en: "", ar: "" });
   const [notes, setNotes] = useState({ en: "", ar: "" });
   const [whatsappMessages, setWhatsappMessages] = useState({ en: "", ar: "" });
-  const [prefilledMessages, setPrefilledMessages] = useState({ en: "", ar: "" });
+  const [prefilledMessages, setPrefilledMessages] = useState({
+    en: "",
+    ar: "",
+  });
   const [units, setUnits] = useState([]);
   const [selectedUnitId, setSelectedUnitId] = useState("");
   const [categories, setCategories] = useState([]);
@@ -692,8 +45,14 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
   const [error, setError] = useState("");
 
   /* ---------- Derived State ---------- */
-  const selectedUnit = units.find((unit) => unit.id === selectedUnitId) || { en: "", ar: "", id: "" };
-  const selectedCategory = categories.find((cat) => cat.id === selectedCategoryId) || { en: "", ar: "", id: "" };
+  const selectedUnit = units.find((unit) => unit.id === selectedUnitId) || {
+    en: "",
+    ar: "",
+    id: "",
+  };
+  const selectedCategory = categories.find(
+    (cat) => cat.id === selectedCategoryId
+  ) || { en: "", ar: "", id: "" };
 
   /* ---------- Handlers ---------- */
   const triggerFeatureInput = () => fileFeatureRef.current?.click();
@@ -718,7 +77,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
   const handleImagesChange = (e) => {
     const files = Array.from(e.target.files || []);
     if (files.some((file) => !file.type.startsWith("image/"))) {
-      setError("All additional images must be valid image files (e.g., PNG, JPEG).");
+      setError(
+        "All additional images must be valid image files (e.g., PNG, JPEG)."
+      );
       return;
     }
     if (files.some((file) => file.size > 5 * 1024 * 1024)) {
@@ -775,8 +136,10 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       if (!token) throw new Error("Please log in first.");
 
       // Client-side validation
-      if (!title.en || !title.ar) throw new Error("Deal title in both languages is required.");
-      if (!validateArabic(title.ar)) throw new Error("Title (AR) must be in Arabic.");
+      if (!title.en || !title.ar)
+        throw new Error("Deal title in both languages is required.");
+      if (!validateArabic(title.ar))
+        throw new Error("Title (AR) must be in Arabic.");
       if (!marketPrice || isNaN(marketPrice) || Number(marketPrice) <= 0)
         throw new Error("Valid market price is required.");
       if (!pricePerUnit || isNaN(pricePerUnit) || Number(pricePerUnit) <= 0)
@@ -789,19 +152,24 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
         throw new Error("Valid minimum required buyers is required.");
       if (!location.en || !location.ar)
         throw new Error("Location in both languages is required.");
-      if (!validateArabic(location.ar)) throw new Error("Location (AR) must be in Arabic.");
+      if (!validateArabic(location.ar))
+        throw new Error("Location (AR) must be in Arabic.");
       if (!supplier.en || !supplier.ar)
         throw new Error("Supplier names in both languages are required.");
-      if (!validateArabic(supplier.ar)) throw new Error("Supplier (AR) must be in Arabic.");
+      if (!validateArabic(supplier.ar))
+        throw new Error("Supplier (AR) must be in Arabic.");
       if (!description.en || !description.ar)
         throw new Error("Descriptions in both languages are required.");
-      if (!validateArabic(description.ar)) throw new Error("Description (AR) must be in Arabic.");
+      if (!validateArabic(description.ar))
+        throw new Error("Description (AR) must be in Arabic.");
       if (!termsAndNotes.en || !termsAndNotes.ar)
         throw new Error("Terms and conditions in both languages are required.");
-      if (!validateArabic(termsAndNotes.ar)) throw new Error("Terms (AR) must be in Arabic.");
+      if (!validateArabic(termsAndNotes.ar))
+        throw new Error("Terms (AR) must be in Arabic.");
       if (!notes.en || !notes.ar)
         throw new Error("Notes in both languages are required.");
-      if (!validateArabic(notes.ar)) throw new Error("Notes (AR) must be in Arabic.");
+      if (!validateArabic(notes.ar))
+        throw new Error("Notes (AR) must be in Arabic.");
       if (!paymentInstructions.en || !paymentInstructions.ar)
         throw new Error("Payment instructions in both languages are required.");
       if (!validateArabic(paymentInstructions.ar))
@@ -818,12 +186,18 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
         throw new Error("Start and end dates are required.");
       if (new Date(startDate) > new Date(endDate))
         throw new Error("Start date must be before or equal to end date.");
-      if (!selectedUnitId || !units.find((unit) => unit.id === selectedUnitId)) {
+      if (
+        !selectedUnitId ||
+        !units.find((unit) => unit.id === selectedUnitId)
+      ) {
         throw new Error("A valid unit is required.");
       }
       if (!validateArabic(selectedUnit.ar))
         throw new Error("Selected unit must have a valid Arabic name.");
-      if (!selectedCategoryId || !categories.find((cat) => cat.id === selectedCategoryId)) {
+      if (
+        !selectedCategoryId ||
+        !categories.find((cat) => cat.id === selectedCategoryId)
+      ) {
         throw new Error("A valid category is required.");
       }
       if (!validateArabic(selectedCategory.ar))
@@ -884,11 +258,14 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       });
       formData.append("existingImages", JSON.stringify(keptImageUrls));
 
-      const res = await fetch(`https://scale-gold.vercel.app/api/items/Updateitems/${deal._id}`, {
-        method: "PUT",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
+      const res = await fetch(
+        `https://scale-gold.vercel.app/api/items/Updateitems/${deal._id}`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        }
+      );
 
       let data;
       try {
@@ -898,7 +275,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       }
 
       if (!res.ok) {
-        throw new Error(data.message || `HTTP Error ${res.status}: Server error`);
+        throw new Error(
+          data.message || `HTTP Error ${res.status}: Server error`
+        );
       }
 
       Swal.fire({
@@ -936,9 +315,12 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           setError("Please log in to load units.");
           return;
         }
-        const res = await fetch("https://scale-gold.vercel.app/api/getAllUnits", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          "https://scale-gold.vercel.app/api/getAllUnits",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         if (!res.ok) throw new Error(`Failed to fetch units: ${res.status}`);
         const result = await res.json();
         if (!Array.isArray(result) || result.length === 0) {
@@ -946,7 +328,13 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           return;
         }
         const validUnits = result
-          .filter((unit) => unit._id && unit.name_en && unit.name_ar && /[\u0600-\u06FF]/.test(unit.name_ar))
+          .filter(
+            (unit) =>
+              unit._id &&
+              unit.name_en &&
+              unit.name_ar &&
+              /[\u0600-\u06FF]/.test(unit.name_ar)
+          )
           .map((unit) => ({
             id: unit._id,
             en: unit.name_en,
@@ -974,17 +362,27 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           setError("Please log in to load categories.");
           return;
         }
-        const res = await fetch("https://scale-gold.vercel.app/api/getAllCategories", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (!res.ok) throw new Error(`Failed to fetch categories: ${res.status}`);
+        const res = await fetch(
+          "https://scale-gold.vercel.app/api/getAllCategories",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        if (!res.ok)
+          throw new Error(`Failed to fetch categories: ${res.status}`);
         const result = await res.json();
         if (!Array.isArray(result) || result.length === 0) {
           setError("No categories available.");
           return;
         }
         const validCategories = result
-          .filter((cat) => cat._id && cat.name_en && cat.name_ar && /[\u0600-\u06FF]/.test(cat.name_ar))
+          .filter(
+            (cat) =>
+              cat._id &&
+              cat.name_en &&
+              cat.name_ar &&
+              /[\u0600-\u06FF]/.test(cat.name_ar)
+          )
           .map((cat) => ({
             id: cat._id,
             en: cat.name_en,
@@ -1019,12 +417,27 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
     setTitle({ en: deal.title?.en || "", ar: deal.title?.ar || "" });
     setLocation({ en: deal.location?.en || "", ar: deal.location?.ar || "" });
     setSupplier({ en: deal.supplier?.en || "", ar: deal.supplier?.ar || "" });
-    setDescription({ en: deal.description?.en || "", ar: deal.description?.ar || "" });
-    setTermsAndNotes({ en: deal.termsAndNotes?.en || "", ar: deal.termsAndNotes?.ar || "" });
+    setDescription({
+      en: deal.description?.en || "",
+      ar: deal.description?.ar || "",
+    });
+    setTermsAndNotes({
+      en: deal.termsAndNotes?.en || "",
+      ar: deal.termsAndNotes?.ar || "",
+    });
     setNotes({ en: deal.notes?.en || "", ar: deal.notes?.ar || "" });
-    setPaymentInstructions({ en: deal.paymentInstructions?.en || "", ar: deal.paymentInstructions?.ar || "" });
-    setWhatsappMessages({ en: deal.whatsappMessages?.en || "", ar: deal.whatsappMessages?.ar || "" });
-    setPrefilledMessages({ en: deal.prefilledMessages?.en || "", ar: deal.prefilledMessages?.ar || "" });
+    setPaymentInstructions({
+      en: deal.paymentInstructions?.en || "",
+      ar: deal.paymentInstructions?.ar || "",
+    });
+    setWhatsappMessages({
+      en: deal.whatsappMessages?.en || "",
+      ar: deal.whatsappMessages?.ar || "",
+    });
+    setPrefilledMessages({
+      en: deal.prefilledMessages?.en || "",
+      ar: deal.prefilledMessages?.ar || "",
+    });
 
     // Numeric fields
     setMarketPrice(deal.marketPrice?.toString() || "");
@@ -1088,7 +501,11 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             {imagePreview ? (
               <div className="relative w-full h-full">
                 <img
-                  src={imagePreview instanceof File ? URL.createObjectURL(imagePreview) : imagePreview}
+                  src={
+                    imagePreview instanceof File
+                      ? URL.createObjectURL(imagePreview)
+                      : imagePreview
+                  }
                   alt="Feature preview"
                   className="object-cover w-full h-full"
                 />
@@ -1338,7 +755,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
                 <input
                   type="text"
                   value={location.en}
-                  onChange={(e) => setLocation({ ...location, en: e.target.value })}
+                  onChange={(e) =>
+                    setLocation({ ...location, en: e.target.value })
+                  }
                   placeholder="Location in English (e.g., Karachi)"
                   className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
                 />
@@ -1348,7 +767,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
                 <input
                   type="text"
                   value={location.ar}
-                  onChange={(e) => setLocation({ ...location, ar: e.target.value })}
+                  onChange={(e) =>
+                    setLocation({ ...location, ar: e.target.value })
+                  }
                   placeholder="الموقع بالعربية (مثال: كراتشي)"
                   className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
                 />
@@ -1361,7 +782,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
                 <input
                   type="text"
                   value={supplier.en}
-                  onChange={(e) => setSupplier({ ...supplier, en: e.target.value })}
+                  onChange={(e) =>
+                    setSupplier({ ...supplier, en: e.target.value })
+                  }
                   placeholder="Supplier name in English"
                   className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
                 />
@@ -1371,7 +794,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
                 <input
                   type="text"
                   value={supplier.ar}
-                  onChange={(e) => setSupplier({ ...supplier, ar: e.target.value })}
+                  onChange={(e) =>
+                    setSupplier({ ...supplier, ar: e.target.value })
+                  }
                   placeholder="اسم المورد بالعربية"
                   className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
                 />
@@ -1380,7 +805,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           </div>
           {/* Delivery Window */}
           <div className="mb-4">
-            <label className="text-gray-500 text-sm">Estimated Delivery Window</label>
+            <label className="text-gray-500 text-sm">
+              Estimated Delivery Window
+            </label>
             <input
               type="text"
               value={deliveryWindow}
@@ -1415,7 +842,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             <label className="text-gray-500 text-sm">Description (EN)</label>
             <textarea
               value={description.en}
-              onChange={(e) => setDescription({ ...description, en: e.target.value })}
+              onChange={(e) =>
+                setDescription({ ...description, en: e.target.value })
+              }
               placeholder="Add Description"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
@@ -1425,7 +854,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             <label className="text-gray-500 text-sm">الوصف (AR)</label>
             <textarea
               value={description.ar}
-              onChange={(e) => setDescription({ ...description, ar: e.target.value })}
+              onChange={(e) =>
+                setDescription({ ...description, ar: e.target.value })
+              }
               placeholder="أضف وصفًا"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
@@ -1454,20 +885,28 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           </div>
           {/* Terms */}
           <div className="mb-4">
-            <label className="text-gray-500 text-sm">Terms & Conditions (EN)</label>
+            <label className="text-gray-500 text-sm">
+              Terms & Conditions (EN)
+            </label>
             <textarea
               value={termsAndNotes.en}
-              onChange={(e) => setTermsAndNotes({ ...termsAndNotes, en: e.target.value })}
+              onChange={(e) =>
+                setTermsAndNotes({ ...termsAndNotes, en: e.target.value })
+              }
               placeholder="Add Terms & Conditions"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
             />
           </div>
           <div className="mb-4">
-            <label className="text-gray-500 text-sm">الشروط والأحكام (AR)</label>
+            <label className="text-gray-500 text-sm">
+              الشروط والأحكام (AR)
+            </label>
             <textarea
               value={termsAndNotes.ar}
-              onChange={(e) => setTermsAndNotes({ ...termsAndNotes, ar: e.target.value })}
+              onChange={(e) =>
+                setTermsAndNotes({ ...termsAndNotes, ar: e.target.value })
+              }
               placeholder="أضف الشروط والأحكام"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
@@ -1475,10 +914,17 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           </div>
           {/* Payment Instructions */}
           <div className="mb-4">
-            <label className="text-gray-500 text-sm">Payment Instructions (EN)</label>
+            <label className="text-gray-500 text-sm">
+              Payment Instructions (EN)
+            </label>
             <textarea
               value={paymentInstructions.en}
-              onChange={(e) => setPaymentInstructions({ ...paymentInstructions, en: e.target.value })}
+              onChange={(e) =>
+                setPaymentInstructions({
+                  ...paymentInstructions,
+                  en: e.target.value,
+                })
+              }
               placeholder="Payment Instructions"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
@@ -1488,7 +934,12 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             <label className="text-gray-500 text-sm">تعليمات الدفع (AR)</label>
             <textarea
               value={paymentInstructions.ar}
-              onChange={(e) => setPaymentInstructions({ ...paymentInstructions, ar: e.target.value })}
+              onChange={(e) =>
+                setPaymentInstructions({
+                  ...paymentInstructions,
+                  ar: e.target.value,
+                })
+              }
               placeholder="تعليمات الدفع"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
@@ -1496,20 +947,34 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           </div>
           {/* Prefilled Messages */}
           <div className="mb-4">
-            <label className="text-gray-500 text-sm">Prefilled Message (EN)</label>
+            <label className="text-gray-500 text-sm">
+              Prefilled Message (EN)
+            </label>
             <textarea
               value={prefilledMessages.en}
-              onChange={(e) => setPrefilledMessages({ ...prefilledMessages, en: e.target.value })}
+              onChange={(e) =>
+                setPrefilledMessages({
+                  ...prefilledMessages,
+                  en: e.target.value,
+                })
+              }
               placeholder="Prefilled message"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
             />
           </div>
           <div className="mb-4">
-            <label className="text-gray-500 text-sm">الرسالة المعبأة مسبقًا (AR)</label>
+            <label className="text-gray-500 text-sm">
+              الرسالة المعبأة مسبقًا (AR)
+            </label>
             <textarea
               value={prefilledMessages.ar}
-              onChange={(e) => setPrefilledMessages({ ...prefilledMessages, ar: e.target.value })}
+              onChange={(e) =>
+                setPrefilledMessages({
+                  ...prefilledMessages,
+                  ar: e.target.value,
+                })
+              }
               placeholder="رسالة واتساب عربية"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
@@ -1517,10 +982,14 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           </div>
           {/* WhatsApp Messages */}
           <div className="mb-4">
-            <label className="text-gray-500 text-sm">WhatsApp Message (EN)</label>
+            <label className="text-gray-500 text-sm">
+              WhatsApp Message (EN)
+            </label>
             <textarea
               value={whatsappMessages.en}
-              onChange={(e) => setWhatsappMessages({ ...whatsappMessages, en: e.target.value })}
+              onChange={(e) =>
+                setWhatsappMessages({ ...whatsappMessages, en: e.target.value })
+              }
               placeholder="WhatsApp message in English"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}
@@ -1530,7 +999,9 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             <label className="text-gray-500 text-sm">رسالة واتساب (AR)</label>
             <textarea
               value={whatsappMessages.ar}
-              onChange={(e) => setWhatsappMessages({ ...whatsappMessages, ar: e.target.value })}
+              onChange={(e) =>
+                setWhatsappMessages({ ...whatsappMessages, ar: e.target.value })
+              }
               placeholder="رسالة واتساب بالعربية"
               className="border p-2 w-full rounded text-sm placeholder-gray-300 text-black"
               rows={2}

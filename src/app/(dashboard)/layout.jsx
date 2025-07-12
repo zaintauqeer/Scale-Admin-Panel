@@ -1,23 +1,3 @@
-// // app/dashboard/layout.jsx
-
-// import Sidebar from "../components/sidebar";
-
-// export default function DashboardLayout({ children }) {
-//   return (
-//     <div className="flex min-h-screen">
-//       {/* Sidebar = 20% */}
-//       <div className="w-64">
-//         <Sidebar />
-//       </div>
-
-//       {/* Main content = remaining width */}
-//       <main className="flex-1 bg-gray-100 p-6">{children}</main>
-//     </div>
-//   );
-// }
-
-
-
 
 // app/dashboard/layout.jsx
 
