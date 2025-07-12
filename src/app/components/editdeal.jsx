@@ -27,6 +27,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
     ar: "",
   });
   const [deliveryWindow, setDeliveryWindow] = useState("");
+  const [interval, setInterval] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [description, setDescription] = useState({ en: "", ar: "" });
@@ -239,6 +240,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       formData.append("categoryAr", selectedCategory.ar);
       formData.append("categoryId", selectedCategoryId);
       formData.append("deliveryWindow", deliveryWindow || "");
+      formData.append("interval", interval || "");
       formData.append("status", deal.status || "active");
 
       if (featureImage instanceof File) {
@@ -455,6 +457,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
 
     // Delivery
     setDeliveryWindow(deal.deliveryWindow?.toString() || "");
+    setInterval(deal.interval?.toString() || "");
 
     // Dates
     const formatDate = (dateString) => {
@@ -843,6 +846,18 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
               value={deliveryWindow}
               onChange={(e) => setDeliveryWindow(e.target.value)}
               placeholder="Estimated Delivery Window"
+              className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
+            />
+          </div>
+          <div className="mb-4">
+            <label className="text-gray-500 text-sm">
+              Set Quantity Interval
+            </label>
+            <input
+              type="text"
+              value={interval}
+              onChange={(e) => setInterval(e.target.value)}
+              placeholder="Set Quantity Interval"
               className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
             />
           </div>
