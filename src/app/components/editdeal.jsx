@@ -327,6 +327,10 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
           setError("No units available.");
           return;
         }
+
+           // ✅ ADD THIS LOG
+      console.log("✅ deal.unitId:", deal.unitId);
+      console.log("✅ Available unit IDs:", result.map((u) => u._id))
         const validUnits = result
           .filter(
             (unit) =>
@@ -341,7 +345,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             ar: unit.name_ar,
           }));
         setUnits(validUnits);
-        setSelectedUnitId(deal.unitId || "");
+        // setSelectedUnitId(deal.unitId || "");
       } catch (err) {
         console.error("Failed to fetch units:", err);
         setError(`Failed to load units: ${err.message}`);
@@ -389,7 +393,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
             ar: cat.name_ar,
           }));
         setCategories(validCategories);
-        setSelectedCategoryId(deal.categoryId || "");
+        // setSelectedCategoryId(deal.categoryId || "");
       } catch (err) {
         console.error("Failed to fetch categories:", err);
         setError(`Failed to load categories: ${err.message}`);
@@ -458,9 +462,32 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
     setStartDate(formatDate(deal.startDate));
     setEndDate(formatDate(deal.endDate));
 
-    // Units and Categories are set in separate useEffect hooks
+
+
   }, [deal]);
 
+
+  useEffect(() => {
+    if (!deal || units.length === 0 || categories.length === 0) return;
+  
+    const matchedUnit = units.find(
+      (u) => u.en === deal.unit?.en || u.ar === deal.unit?.ar
+    );
+    const matchedCategory = categories.find(
+      (c) => c.en === deal.category?.en || c.ar === deal.category?.ar
+    );
+  
+    console.log("✅ Matched Unit ID:", matchedUnit?.id);
+    console.log("✅ Matched Category ID:", matchedCategory?.id);
+  
+    setSelectedUnitId(matchedUnit?.id || "");
+    setSelectedCategoryId(matchedCategory?.id || "");
+  }, [deal, units, categories]);
+  
+  
+  console.log("🧠 deal.unit:", deal.unit);
+  console.log("🧠 deal.category:", deal.category);
+  
   /* ---------- Click Outside to Close ---------- */
   useEffect(() => {
     const handleClickOutside = (event) => {
