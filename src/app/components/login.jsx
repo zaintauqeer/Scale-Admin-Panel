@@ -1,51 +1,30 @@
 "use client";
 
-import { useEffect,useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { loginAction } from "@/lib/auth"; // Import the server action
 
 export default function Login() {
-  const [identifier, setIdentifier] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
-  /* ----- login handler (unchanged) ----- */
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-    setLoading(true);
-    try {
-      const res = await fetch("https://scale-gold.vercel.app/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ identifier, password }),
-      });
+    setError(""); // Clear previous errors
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Login failed");
-      if (data.token) localStorage.setItem("authToken", data.token);
-      router.push("/deals");
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+    const formData = new FormData(e.currentTarget);
+
+    // Call the server action
+    const result = await loginAction(formData);
+
+    if (result.error) {
+      setError(result.error);
+    } else {
+      // Redirect on successful login
+      router.push("/"); // Replace with your desired redirect path
     }
   };
-/////////
-  useEffect(() => {
-    const token = localStorage.getItem("authToken");
-    if (token) {
-      router.push("/deals"); // Already logged in, go to dashboard
-    }
-  }, []);
-  
-
-  const togglePasswordVisibility = () => setShowPassword((p) => !p);
 
   return (
     <div className="relative min-h-screen login-bg flex justify-center items-center">
@@ -59,7 +38,7 @@ export default function Login() {
           Please provide your login information to proceed
         </p>
 
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* identifier */}
           <div>
             <label className="block mb-1 text-sm font-medium text-[#8C8C8C]">
@@ -67,8 +46,7 @@ export default function Login() {
             </label>
             <input
               type="text"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
+              name="identifier"
               placeholder="Enter here"
               required
               autoFocus
@@ -84,9 +62,8 @@ export default function Login() {
 
             <div className="relative">
               <input
-                type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                type="password"
+                name="password"
                 placeholder="Enter here"
                 required
                 className="w-full px-3 py-2 text-black border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-[#F15625] pr-10 placeholder-gray-300"
@@ -94,13 +71,10 @@ export default function Login() {
 
               <button
                 type="button"
-                onClick={togglePasswordVisibility}
                 className="absolute right-3 top-1/2 -translate-y-1/2 transform text-gray-500"
               >
                 <img
-                  src={
-                    showPassword ? "/eye-slash-regular.svg" : "/eye-regular.svg"
-                  }
+                  src={"/eye-slash-regular.svg"}
                   alt="Toggle password visibility"
                   className="w-4 h-4 "
                 />
@@ -112,14 +86,9 @@ export default function Login() {
 
           <button
             type="submit"
-            disabled={loading}
-            className={`w-full py-2 rounded transition duration-200 ${
-              loading
-                ? "bg-red-300 cursor-not-allowed"
-                : "bg-[#F15625] hover:bg-[#f15525] text-white"
-            }`}
+            className="w-full py-2 rounded transition duration-200 bg-[#F15625] hover:bg-[#f15525] text-white"
           >
-            {loading ? "Logging in…" : "Login"}
+            Login
           </button>
 
           <div className="text-center">

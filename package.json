@@ -12,6 +12,7 @@
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.523.0",
     "next": "15.3.4",
+    "next-auth": "^5.0.0-beta.29",
     "postcss": "^8.5.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -20,6 +21,8 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.1.10",
+    "@types/node": "24.0.13",
+    "@types/react": "19.1.8",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
     "tailwindcss": "^4.1.10"
