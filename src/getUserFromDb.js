@@ -1,4 +1,4 @@
-const getUserFromDb = async (identifier: string, password: string) => {
+const getUserFromDb = async (identifier, password) => {
   try {
     const res = await fetch("https://scale-gold.vercel.app/api/users/login", {
       method: "POST",
@@ -15,7 +15,7 @@ const getUserFromDb = async (identifier: string, password: string) => {
     const data = await res.json();
 
     console.log(data)
-
+    
     // Ensure user data is returned in a format NextAuth expects
     // e.g., { id, name, email, image }
     if (data && data.user) {
@@ -26,6 +26,8 @@ const getUserFromDb = async (identifier: string, password: string) => {
         token: data.token,
       };
     }
+
+    localStorage.setItem("authToken", data.token);
 
     return null;
   } catch (error) {

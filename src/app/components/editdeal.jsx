@@ -1,6 +1,8 @@
 "use client";
 import React, { useRef, useState, useEffect } from "react";
 import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
+
 
 const EditDealComponent = ({ deal, onClose, onUpdate }) => {
   /* ---------- Refs ---------- */
@@ -43,6 +45,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
   const [isLoadingUnits, setIsLoadingUnits] = useState(false);
   const [isLoadingCategories, setIsLoadingCategories] = useState(false);
   const [error, setError] = useState("");
+  const { data: session } = useSession();
 
   /* ---------- Derived State ---------- */
   const selectedUnit = units.find((unit) => unit.id === selectedUnitId) || {
@@ -132,7 +135,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
     setIsSubmitting(true);
 
     try {
-      const token = localStorage.getItem("authToken");
+      const token = session?.user?.token;
       if (!token) throw new Error("Please log in first.");
 
       // Client-side validation
@@ -310,7 +313,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       setIsLoadingUnits(true);
       setError("");
       try {
-        const token = localStorage.getItem("authToken");
+        const token = session?.user?.token;
         if (!token) {
           setError("Please log in to load units.");
           return;
@@ -354,14 +357,14 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       }
     };
     fetchUnits();
-  }, [deal.unitId]);
+  }, [deal.unitId,session]);
 
   useEffect(() => {
     const fetchCategories = async () => {
       setIsLoadingCategories(true);
       setError("");
       try {
-        const token = localStorage.getItem("authToken");
+        const token = session?.user?.token;
         if (!token) {
           setError("Please log in to load categories.");
           return;
@@ -402,7 +405,7 @@ const EditDealComponent = ({ deal, onClose, onUpdate }) => {
       }
     };
     fetchCategories();
-  }, [deal.categoryId]);
+  }, [deal.categoryId,session]);
 
   /* ---------- Prefill Fields ---------- */
   useEffect(() => {

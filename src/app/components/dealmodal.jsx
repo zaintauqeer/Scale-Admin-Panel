@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
 
 const CreateDealModal = ({ closeModal, refreshDeals }) => {
   const fileFeatureRef = useRef();
   const fileImagesRef = useRef();
   const modalRef = useRef();
+  const { data: session } = useSession();
 
   /* ---------- State ---------- */
   const [imagePreview, setImagePreview] = useState(null);
@@ -23,6 +25,7 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
     ar: "",
   });
   const [deliveryWindow, setDeliveryWindow] = useState("");
+  const [interval, setInterval] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [description, setDescription] = useState({ en: "", ar: "" });
@@ -121,7 +124,7 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
     setIsSubmitting(true);
 
     try {
-      const token = localStorage.getItem("authToken");
+      const token = session?.user?.token;
       if (!token) throw new Error("Please log in first.");
 
       // Client-side validation
@@ -228,6 +231,7 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
       formData.append("categoryAr", selectedCategory.ar);
       formData.append("categoryId", selectedCategoryId);
       formData.append("deliveryWindow", deliveryWindow || "");
+      formData.append("interval", interval);
       formData.append("status", "active");
 
       if (!featureImage.type.startsWith("image/")) {
@@ -297,12 +301,11 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
       setIsLoadingUnits(true);
       setError("");
       try {
-        const token = localStorage.getItem("authToken");
+        const token = session?.user?.token;
         if (!token) {
           setError("Please log in to load units.");
           return;
         }
-        console.log("Auth token:", token.slice(0, 10) + "..."); // Obscure token
         const res = await fetch(
           "https://scale-gold.vercel.app/api/getAllUnits",
           {
@@ -347,14 +350,14 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
       }
     };
     fetchUnits();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     const fetchCategories = async () => {
       setIsLoadingCategories(true);
       setError("");
       try {
-        const token = localStorage.getItem("authToken");
+        const token = session?.user?.token;
         if (!token) {
           setError("Please log in to load categories.");
           return;
@@ -404,7 +407,7 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
       }
     };
     fetchCategories();
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -708,20 +711,34 @@ const CreateDealModal = ({ closeModal, refreshDeals }) => {
                 />
               </div>
             </div>
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <label className="text-gray-500 text-sm">
+                  Estimated Delivery Window
+                </label>
+                <input
+                  type="text"
+                  value={deliveryWindow}
+                  onChange={(e) => setDeliveryWindow(e.target.value)}
+                  placeholder="Estimated Delivery Window"
+                  className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
+                />
+              </div>
+              <div className="flex-1">
+                <label className="text-gray-500 text-sm">
+                  Set Interval Quantity
+                </label>
+                <input
+                  type="number"
+                  value={interval}
+                  onChange={(e) => setInterval(e.target.value)}
+                  placeholder="Estimated Delivery Window"
+                  className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
+                />
+              </div>
+            </div>
           </div>
           {/* Delivery Window */}
-          <div className="mb-4">
-            <label className="text-gray-500 text-sm">
-              Estimated Delivery Window
-            </label>
-            <input
-              type="text"
-              value={deliveryWindow}
-              onChange={(e) => setDeliveryWindow(e.target.value)}
-              placeholder="Estimated Delivery Window"
-              className="border p-2 rounded text-sm w-full placeholder-gray-300 text-black"
-            />
-          </div>
           {/* Delivery Dates */}
           <div className="flex flex-col md:flex-row gap-4 mb-4">
             <div className="flex-1">

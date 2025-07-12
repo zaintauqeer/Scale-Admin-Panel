@@ -1,6 +1,8 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
+
 
 const AddSupplierModal = ({ closeModal }) => {
   const modalRef = useRef();
@@ -12,6 +14,7 @@ const AddSupplierModal = ({ closeModal }) => {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [status, setStatus] = useState("active");
+  const { data: session } = useSession();
 
   const areaOptions = [
     "North Dammam",
@@ -30,7 +33,7 @@ const AddSupplierModal = ({ closeModal }) => {
 
   const handleSubmit = async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      const token = session?.user?.token;
       if (!token) return alert("Please log in first.");
 
       const payload = {

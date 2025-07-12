@@ -175,7 +175,7 @@ const Page = () => {
               <tr className="border-b border-gray-200">
                 <th className="py-2 px-3 font-medium text-sm">Products</th>
                 <th className="py-2 px-2 font-medium text-sm">Supplier</th>
-                <th className="py-2 px-3 font-medium text-sm">Buyers Joined</th>
+                <th className="py-2 px-3 font-medium text-sm">Total Sold</th>
                 <th className="py-2 px-3 font-medium text-sm">Time Left</th>
                 <th className="py-2 px-3 font-medium text-sm">Action</th>
               </tr>
@@ -211,13 +211,13 @@ const Page = () => {
 
                   <td className="py-2 px-3 text-sm">{deal.supplier?.en}</td>
                   <td className="py-2 px-3 text-sm">
-                    {deal.minorder}/{deal.quantityOrder}
+                    {deal.totalSold}/{deal.quantityOrder}
                     <div className="w-60 h-2 rounded-lg bg-gray-300 border border-gray-300 overflow-hidden">
                       <div
                         className="h-2 rounded-lg bg-orange-500"
                         style={{
                           width: `${Math.min(
-                            (deal.minorder / deal.quantityOrder) * 100,
+                            (deal.totalSold / deal.quantityOrder) * 100,
                             100
                           )}%`,
                         }}
@@ -432,7 +432,7 @@ const Page = () => {
             }}
             onConfirm={async () => {
               try {
-                const token = localStorage.getItem("authToken"); // ✅
+                const token = session?.user?.token;
                 await fetch(
                   `https://scale-gold.vercel.app/api/items/Itemdelete/${selectedDealId}`, // ✅
                   {

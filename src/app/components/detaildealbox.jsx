@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import CloseDealModal from "./closedeal";
 import EditDealComponent from "./editdeal";
+import { useSession } from "next-auth/react";
+
 
 const DetailDealBox = ({ deal }) => {
   const {
@@ -28,6 +30,7 @@ const DetailDealBox = ({ deal }) => {
     whatsappMessages,
     prefilledMessages,
   } = deal;
+  const { data: session } = useSession();
 
   const safeImage = featureImage || "/placeholder-image.jpg";
   const gallery = [safeImage, ...images.filter((src) => src && src !== safeImage)];
@@ -144,7 +147,7 @@ const DetailDealBox = ({ deal }) => {
           onClose={() => setShowCloseModal(false)}
           onConfirm={async () => {
             try {
-              const token = localStorage.getItem("authToken");
+              const token = session?.user?.token;
               if (!token) throw new Error("Authentication token missing");
 
               const res = await fetch(`https://scale-gold.vercel.app/api/items/Itemdelete/${_id}`, {

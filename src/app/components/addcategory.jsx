@@ -1,15 +1,17 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import Swal from "sweetalert2";
+import { useSession } from "next-auth/react";
 
 const AddCategoryModal = ({ closeModal }) => {
   const modalRef = useRef();
   const [nameEn, setNameEn] = useState("");
   const [nameAr, setNameAr] = useState("");
+  const { data: session, status } = useSession();
 
   const handleSubmit = async () => {
     try {
-      const token = localStorage.getItem("authToken");
+      const token = session?.user?.token;
       if (!token) return alert("Please log in first.");
 
       const payload = {
