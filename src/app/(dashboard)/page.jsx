@@ -146,7 +146,9 @@ const fetchStats = async () => {
 
 // Call fetchStats when session/status changes
 useEffect(() => {
-  fetchStats();
+  if (session?.user?.token) {
+    fetchStats();
+  }
 }, [session, status]);
   return (
     <div>
