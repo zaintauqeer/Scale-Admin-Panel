@@ -349,7 +349,7 @@ const Page = () => {
                     >
                       {deal.title?.en}
                     </Link>
-                  </td>{" "}
+                  </td>
                   <td className="py-2 px-3 text-sm">{deal.supplier?.en}</td>
                   <td className="py-2 px-3 text-sm">
                     {deal.minorder}/{deal.quantityOrder}
