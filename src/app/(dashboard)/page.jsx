@@ -153,7 +153,7 @@ useEffect(() => {
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-xl font-medium text-black">Manage Deals</h3>
+        <h3 className="text-xl font-medium text-black">Dashboard</h3>
 
         <button
           onClick={() => setShowModal(true)}

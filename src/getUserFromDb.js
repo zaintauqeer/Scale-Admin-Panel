@@ -1,11 +1,11 @@
 const getUserFromDb = async (identifier, password) => {
   try {
-    const res = await fetch("https://scale-gold.vercel.app/api/users/login", {
+    const res = await fetch("https://scale-gold.vercel.app/api/admins/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ identifier: identifier, password }),
+      body: JSON.stringify({ identifier, password }),
     });
 
     if (!res.ok) {
@@ -21,13 +21,12 @@ const getUserFromDb = async (identifier, password) => {
     if (data && data.user) {
       return {
         id: data.user.id,
-        name: data.user.username,
+        username: data.user.username,
         email: data.user.email,
+        role: data.user.role,
         token: data.token,
       };
     }
-
-    localStorage.setItem("authToken", data.token);
 
     return null;
   } catch (error) {

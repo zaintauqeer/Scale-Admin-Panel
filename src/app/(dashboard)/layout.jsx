@@ -9,11 +9,13 @@ export default async function DashboardLayout({ children }) {
     redirect("/login");
   }
 
+  const isSuperAdmin =  session?.user?.role == "superadmin"?true:false 
+  console.log(session)
   return (
     <SessionProvider>
       <div className="flex h-screen overflow-hidden">
         <div className="fixed top-0 left-0 w-64 h-screen z-40">
-          <Sidebar />
+          <Sidebar isSuperAdmin={isSuperAdmin}/>
         </div>
 
         <div className="flex-1 flex flex-col ml-64 w-[calc(100%-16rem)] bg-white">
