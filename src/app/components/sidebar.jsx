@@ -33,9 +33,9 @@ export default function Sidebar({ isSuperAdmin }) {
       {/* 🔹 Sidebar Container */}
       <aside
         className={`
-          bg-[#F15625] w-64 min-h-screen flex-col  z-40
+          bg-[#F15625] w-64 min-h-[calc(100dvh-3.5rem)] flex-col  z-40
           transition-transform duration-300 ease-in-out
-          fixed md:static
+          fixed md:static top-14
           ${isOpen ? "translate-x-0" : "-translate-x-full"}
           md:translate-x-0 md:flex
         `}
@@ -67,7 +67,7 @@ export default function Sidebar({ isSuperAdmin }) {
       {/* 🔹 Mobile Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-30 bg-black bg-opacity-40 md:hidden"
+          className="fixed left-0 w-full min-h-[calc(100dvh-3.5rem)] top-14 z-30 bg-black opacity-30 md:hidden"
           onClick={toggleSidebar}
         />
       )}

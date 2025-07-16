@@ -46,9 +46,8 @@ const Page = () => {
   };
 
   return (
-    <div className="p-6 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">User Settings</h1>
-      
+    <div className="p-1">
+      <h3 className="text-xl font-medium text-black">Admins</h3>
       <div className="space-y-4">
         <div>
           <label className="block mb-2">Name</label>

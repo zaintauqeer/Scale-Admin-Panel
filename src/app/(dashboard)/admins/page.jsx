@@ -97,44 +97,45 @@ const Admins = () => {
                         />
                     </div>
                 </div>
-
-                <table className="w-full border border-gray-200 text-sm">
-                    <thead className="text-gray-700 bg-gray-50">
-                        <tr>
-                            <th className="py-2 px-4">S.No</th>
-                            <th className="py-2 px-6">Username</th>
-                            <th className="py-2 px-6">Email</th>
-                            <th className="py-2 px-6">Role</th>
-                            <th className="py-2 px-4">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {admins.map((admin, index) => (
-                            <tr key={admin._id} className="text-center">
-                                <td className="py-2 px-4 border-b border-gray-200">{index + 1}</td>
-                                <td className="py-2 px-6 border-b border-gray-200">{admin.username}</td>
-                                <td className="py-2 px-6 border-b border-gray-200">{admin.email}</td>
-                                <td className="py-2 px-6 border-b border-gray-200">{admin.role}</td>
-                                <td className="py-2 px-4 border-b border-gray-200">
-                                    <div className="flex justify-center gap-2">
-                                        <button
-                                            onClick={() => handleEdit(admin)}
-                                            className="text-blue-500"
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            onClick={() => onDelete(admin._id)}
-                                            className="text-red-500"
-                                        >
-                                            Delete
-                                        </button>
-                                    </div>
-                                </td>
+                <div className="overflow-x-auto w-full">
+                    <table className="w-full border border-gray-200 text-sm">
+                        <thead className="text-gray-700 bg-gray-50">
+                            <tr>
+                                <th className="py-2 px-4">S.No</th>
+                                <th className="py-2 px-6">Username</th>
+                                <th className="py-2 px-6">Email</th>
+                                <th className="py-2 px-6">Role</th>
+                                <th className="py-2 px-4">Action</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {admins.map((admin, index) => (
+                                <tr key={admin._id} className="text-center">
+                                    <td className="py-2 w-max px-4 border-b border-gray-200">{index + 1}</td>
+                                    <td className="py-2 w-max px-6 border-b border-gray-200">{admin.username}</td>
+                                    <td className="py-2 w-max px-6 border-b border-gray-200">{admin.email}</td>
+                                    <td className="py-2 w-max px-6 border-b border-gray-200">{admin.role}</td>
+                                    <td className="py-2 w-max px-4 border-b border-gray-200">
+                                        <div className="flex justify-center gap-2">
+                                            <button
+                                                onClick={() => handleEdit(admin)}
+                                                className="text-blue-500"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() => onDelete(admin._id)}
+                                                className="text-red-500"
+                                            >
+                                                Delete
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
             {showModal && (
                 <AddAdminModal

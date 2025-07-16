@@ -13,13 +13,11 @@ export default async function DashboardLayout({ children }) {
   console.log(session)
   return (
     <SessionProvider>
-      <div className="flex h-screen overflow-hidden">
-        <div className="fixed top-0 left-0 w-64 h-screen z-40">
-          <Sidebar isSuperAdmin={isSuperAdmin}/>
-        </div>
+      <div className="flex md:flex-row flex-col min-h-screen">
+        <Sidebar isSuperAdmin={isSuperAdmin}/>
 
-        <div className="flex-1 flex flex-col ml-64 w-[calc(100%-16rem)] bg-white">
-          <main className="h-screen overflow-y-auto p-6">
+        <div className="md:w-[calc(100%-16rem)] w-full bg-white">
+          <main className="h-[calc(100dvh-3.5rem)] overflow-y-auto p-6">
             {children}
           </main>
         </div>

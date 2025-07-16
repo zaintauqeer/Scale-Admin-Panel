@@ -115,41 +115,41 @@ const Page = () => {
     setActiveMenuId(null);
     setTotalMenuId(null);
   };
-const fetchStats = async () => {
-  const token = session?.user?.token;
-  if (!token) {
-    console.error("No token found");
-    return;
-  }
+  const fetchStats = async () => {
+    const token = session?.user?.token;
+    if (!token) {
+      console.error("No token found");
+      return;
+    }
 
-  try {
-    const res = await fetch("https://scale-gold.vercel.app/api/items/Stats", {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-      },
-    });
+    try {
+      const res = await fetch("https://scale-gold.vercel.app/api/items/Stats", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
 
-    if (!res.ok) throw new Error("Failed to fetch stats");
-    
-    const data = await res.json();
-    setStats({
-      totalDeals: data.totalDeals || 0,
-      activeDeals: data.activeDeals || 0, 
-      fulfilledDeals: data.fulfilledDeals || 0,
-    });
-    setLoadingStats(false);
-  } catch (err) {
-    setStatsError(err.message);
-    setLoadingStats(false);
-  }
-};
+      if (!res.ok) throw new Error("Failed to fetch stats");
 
-// Call fetchStats when session/status changes
-useEffect(() => {
-  if (session?.user?.token) {
-    fetchStats();
-  }
-}, [session, status]);
+      const data = await res.json();
+      setStats({
+        totalDeals: data.totalDeals || 0,
+        activeDeals: data.activeDeals || 0,
+        fulfilledDeals: data.fulfilledDeals || 0,
+      });
+      setLoadingStats(false);
+    } catch (err) {
+      setStatsError(err.message);
+      setLoadingStats(false);
+    }
+  };
+
+  // Call fetchStats when session/status changes
+  useEffect(() => {
+    if (session?.user?.token) {
+      fetchStats();
+    }
+  }, [session, status]);
   return (
     <div>
       <div className="flex justify-between items-center mb-6">
@@ -218,110 +218,111 @@ useEffect(() => {
             </div>
           </div>
         </div>
-
-        <table className="w-full text-left border border-[#DDDDDD] relative text-[#444444]">
-          <thead>
-            <tr className="border-b border-gray-200">
-              <th className="py-2 px-3 font-medium text-sm">Products</th>
-              <th className="py-2 px-2 font-medium text-sm">Supplier</th>
-              <th className="py-2 px-3 font-medium text-sm">Total Sold</th>
-              <th className="py-2 px-3 font-medium text-sm">Time Left</th>
-              <th className="py-2 px-3 font-medium text-sm">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredActiveDeals.map((deal) => (
-              <tr
-                key={deal._id}
-                className="border-b border-gray-200 relative"
-              >
-                <td className="py-2 px-3 text-sm flex items-center gap-3">
-                  {deal.featureImage && (
-                    <div
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden"
-                      style={{
-                        boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)",
-                      }}
-                    >
-                      <img
-                        src={deal.featureImage}
-                        alt="feature"
-                        className="w-6 h-6 object-contain"
-                      />
-                    </div>
-                  )}
-                  <Link
-                    href={`/deals/${deal._id}`} // ⬅️ dynamic route
-                    className="hover:underline"
-                  >
-                    {deal.title?.en}
-                  </Link>
-                </td>
-
-                <td className="py-2 px-3 text-sm">{deal.supplier?.en}</td>
-                <td className="py-2 px-3 text-sm">
-                  {deal.totalSold}/{deal.quantityOrder}
-                  <div className="w-60 h-2 rounded-lg bg-gray-300 border border-gray-300 overflow-hidden">
-                    <div
-                      className="h-2 rounded-lg bg-orange-500"
-                      style={{
-                        width: `${Math.min(
-                          (deal.totalSold / deal.quantityOrder) * 100,
-                          100
-                        )}%`,
-                      }}
-                    ></div>
-                  </div>
-                </td>
-                <td className="py-2 px-3 text-sm">
-                  {calculateTimeLeft(deal.endDate)}
-                </td>
-                <td className="py-2 px-3 text-sm relative">
-                  <div className="flex mx-4">
-                    <button
-                      className="text-blue-500"
-                      onClick={() =>
-                        setActiveMenuId(
-                          activeMenuId === deal._id ? null : deal._id
-                        )
-                      }
-                    >
-                      <img
-                        src="/actions.svg"
-                        alt="actions"
-                        className="h-5 w-5"
-                      />
-                    </button>
-                  </div>
-
-                  {activeMenuId === deal._id && (
-                    <div
-                      ref={(el) => (activeMenuRefs.current[deal._id] = el)}
-                      className="absolute right-14 top-12 bg-white border border-[#DDDDDD] rounded-sm  z-10 w-32"
-                    >
-                      <button
-                        className="block w-full px-4 py-2 text-left text-sm text-[#666666] hover:bg-gray-100 border-b border-[#DDDDDD] hover:rounded-l-sm hover:rounded-r-sm "
-                        onClick={() => handleEdit(deal._id)}
-                      >
-                        Edit Deal
-                      </button>
-                      <button
-                        className="block w-full px-4 py-2 text-left text-sm text-[#666666] hover:bg-gray-100 "
-                        onClick={() => {
-                          setSelectedDealId(deal._id);
-                          setShowCloseModal(true);
-                          setTotalMenuId(null);
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left border border-[#DDDDDD] relative text-[#444444]">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="py-2 px-3 font-medium text-sm">Products</th>
+                <th className="py-2 px-2 font-medium text-sm">Supplier</th>
+                <th className="py-2 px-3 font-medium text-sm">Total Sold</th>
+                <th className="py-2 px-3 font-medium text-sm">Time Left</th>
+                <th className="py-2 px-3 font-medium text-sm">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredActiveDeals.map((deal) => (
+                <tr
+                  key={deal._id}
+                  className="border-b border-gray-200 relative"
+                >
+                  <td className="py-2 px-3 w-max text-sm flex items-center gap-3">
+                    {deal.featureImage && (
+                      <div
+                        className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden"
+                        style={{
+                          boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)",
                         }}
                       >
-                        Close Deal
+                        <img
+                          src={deal.featureImage}
+                          alt="feature"
+                          className="w-6 h-6 object-contain"
+                        />
+                      </div>
+                    )}
+                    <Link
+                      href={`/deals/${deal._id}`} // ⬅️ dynamic route
+                      className="hover:underline"
+                    >
+                      {deal.title?.en}
+                    </Link>
+                  </td>
+
+                  <td className="py-2 px-3 w-max text-sm">{deal.supplier?.en}</td>
+                  <td className="py-2 px-3 w-max text-sm">
+                    {deal.totalSold}/{deal.quantityOrder}
+                    <div className="w-60 h-2 rounded-lg bg-gray-300 border border-gray-300 overflow-hidden">
+                      <div
+                        className="h-2 rounded-lg bg-orange-500"
+                        style={{
+                          width: `${Math.min(
+                            (deal.totalSold / deal.quantityOrder) * 100,
+                            100
+                          )}%`,
+                        }}
+                      ></div>
+                    </div>
+                  </td>
+                  <td className="py-2 px-3 w-max text-sm">
+                    {calculateTimeLeft(deal.endDate)}
+                  </td>
+                  <td className="py-2 px-3 w-max text-sm relative">
+                    <div className="flex mx-4">
+                      <button
+                        className="text-blue-500"
+                        onClick={() =>
+                          setActiveMenuId(
+                            activeMenuId === deal._id ? null : deal._id
+                          )
+                        }
+                      >
+                        <img
+                          src="/actions.svg"
+                          alt="actions"
+                          className="h-5 w-5"
+                        />
                       </button>
                     </div>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+                    {activeMenuId === deal._id && (
+                      <div
+                        ref={(el) => (activeMenuRefs.current[deal._id] = el)}
+                        className="absolute right-14 top-12 bg-white border border-[#DDDDDD] rounded-sm  z-10 w-32"
+                      >
+                        <button
+                          className="block w-full px-4 py-2 text-left text-sm text-[#666666] hover:bg-gray-100 border-b border-[#DDDDDD] hover:rounded-l-sm hover:rounded-r-sm "
+                          onClick={() => handleEdit(deal._id)}
+                        >
+                          Edit Deal
+                        </button>
+                        <button
+                          className="block w-full px-4 py-2 text-left text-sm text-[#666666] hover:bg-gray-100 "
+                          onClick={() => {
+                            setSelectedDealId(deal._id);
+                            setShowCloseModal(true);
+                            setTotalMenuId(null);
+                          }}
+                        >
+                          Close Deal
+                        </button>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* second table - Total Deals */}
@@ -360,110 +361,111 @@ useEffect(() => {
             </div>
           </div>
         </div>
-
-        <table className="w-full text-left border border-[#DDDDDD] text-[#444444]">
-          <thead>
-            <tr className="border-b border-gray-200">
-              <th className="py-2 px-3 font-medium text-sm">Deals</th>
-              <th className="py-2 px-3 font-medium text-sm">Supplier</th>
-              <th className="py-2 px-3 font-medium text-sm">Buyers Joined</th>
-              <th className="py-2 px-3 font-medium text-sm">Status</th>
-              <th className="py-2 px-3 font-medium text-sm">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredTotalDeals.map((deal) => (
-              <tr
-                key={deal._id}
-                className="border-b border-gray-200 relative"
-              >
-                <td className="py-2 px-3 text-sm flex items-center gap-3">
-                  {deal.featureImage && (
-                    <div
-                      className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden"
-                      style={{
-                        boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)",
-                      }}
-                    >
-                      <img
-                        src={deal.featureImage}
-                        alt="feature"
-                        className="w-6 h-6 object-contain"
-                      />
-                    </div>
-                  )}
-                  <Link
-                    href={`/deals/${deal._id}`} // ⬅️ dynamic route
-                    className="hover:underline"
-                  >
-                    {deal.title?.en}
-                  </Link>
-                </td>{" "}
-                <td className="py-2 px-3 text-sm">{deal.supplier?.en}</td>
-                <td className="py-2 px-3 text-sm">
-                  {deal.minorder}/{deal.quantityOrder}
-                  <div className="w-60 h-2 rounded-lg bg-gray-300 border border-gray-300 overflow-hidden">
-                    <div
-                      className="h-2 rounded-lg bg-orange-500"
-                      style={{
-                        width: `${Math.min(
-                          (deal.minorder / deal.quantityOrder) * 100,
-                          100
-                        )}%`,
-                      }}
-                    ></div>
-                  </div>
-                </td>
-                <td className="py-2 px-3 text-sm">
-                  {/* {calculateTimeLeft(deal.endDate)} */}
-                  {deal.status}
-                </td>
-                <td className="py-2 px-3 text-sm relative">
-                  <div className="flex mx-4">
-                    <button
-                      className="text-blue-500"
-                      onClick={() =>
-                        setTotalMenuId(
-                          totalMenuId === deal._id ? null : deal._id
-                        )
-                      }
-                    >
-                      <img
-                        src="/actions.svg"
-                        alt="actions"
-                        className="h-5 w-5"
-                      />
-                    </button>
-                  </div>
-
-                  {totalMenuId === deal._id && (
-                    <div
-                      ref={(el) => (totalMenuRefs.current[deal._id] = el)}
-                      className="absolute right-14 top-12 bg-white border border-[#DDDDDD] rounded-sm  z-10 w-32 overflow-auto"
-                    >
-                      <button
-                        className="block w-full px-4 py-2 text-left border-b border-[#DDDDDD] text-sm hover:rounded-l-sm hover:rounded-r-sm text-gray-500 hover:bg-gray-100"
-                        onClick={() => handleEdit(deal._id)}
-                      >
-                        Edit Deal
-                      </button>
-                      <button
-                        className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:bg-gray-100"
-                        onClick={() => {
-                          setSelectedDealId(deal._id);
-                          setShowCloseModal(true);
-                          setMenuOpenId(null);
+        <div className="overflow-x-auto w-full">
+          <table className="w-full text-left border border-[#DDDDDD] text-[#444444]">
+            <thead>
+              <tr className="border-b border-gray-200">
+                <th className="py-2 px-3 font-medium text-sm">Deals</th>
+                <th className="py-2 px-3 font-medium text-sm">Supplier</th>
+                <th className="py-2 px-3 font-medium text-sm">Buyers Joined</th>
+                <th className="py-2 px-3 font-medium text-sm">Status</th>
+                <th className="py-2 px-3 font-medium text-sm">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredTotalDeals.map((deal) => (
+                <tr
+                  key={deal._id}
+                  className="border-b border-gray-200 relative"
+                >
+                  <td className="py-2 px-3 w-max text-sm flex items-center gap-3">
+                    {deal.featureImage && (
+                      <div
+                        className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden"
+                        style={{
+                          boxShadow: "inset 0px 0px 8px rgba(0,0,0,0.4)",
                         }}
                       >
-                        Close Deal
+                        <img
+                          src={deal.featureImage}
+                          alt="feature"
+                          className="w-6 h-6 object-contain"
+                        />
+                      </div>
+                    )}
+                    <Link
+                      href={`/deals/${deal._id}`} // ⬅️ dynamic route
+                      className="hover:underline"
+                    >
+                      {deal.title?.en}
+                    </Link>
+                  </td>{" "}
+                  <td className="py-2 px-3 w-max text-sm">{deal.supplier?.en}</td>
+                  <td className="py-2 px-3 w-max text-sm">
+                    {deal.minorder}/{deal.quantityOrder}
+                    <div className="w-60 h-2 rounded-lg bg-gray-300 border border-gray-300 overflow-hidden">
+                      <div
+                        className="h-2 rounded-lg bg-orange-500"
+                        style={{
+                          width: `${Math.min(
+                            (deal.minorder / deal.quantityOrder) * 100,
+                            100
+                          )}%`,
+                        }}
+                      ></div>
+                    </div>
+                  </td>
+                  <td className="py-2 px-3 w-max text-sm">
+                    {/* {calculateTimeLeft(deal.endDate)} */}
+                    {deal.status}
+                  </td>
+                  <td className="py-2 px-3 w-max text-sm relative">
+                    <div className="flex mx-4">
+                      <button
+                        className="text-blue-500"
+                        onClick={() =>
+                          setTotalMenuId(
+                            totalMenuId === deal._id ? null : deal._id
+                          )
+                        }
+                      >
+                        <img
+                          src="/actions.svg"
+                          alt="actions"
+                          className="h-5 w-5"
+                        />
                       </button>
                     </div>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+                    {totalMenuId === deal._id && (
+                      <div
+                        ref={(el) => (totalMenuRefs.current[deal._id] = el)}
+                        className="absolute right-14 top-12 bg-white border border-[#DDDDDD] rounded-sm  z-10 w-32 overflow-auto"
+                      >
+                        <button
+                          className="block w-full px-4 py-2 text-left border-b border-[#DDDDDD] text-sm hover:rounded-l-sm hover:rounded-r-sm text-gray-500 hover:bg-gray-100"
+                          onClick={() => handleEdit(deal._id)}
+                        >
+                          Edit Deal
+                        </button>
+                        <button
+                          className="block w-full px-4 py-2 text-left text-sm text-gray-500 hover:bg-gray-100"
+                          onClick={() => {
+                            setSelectedDealId(deal._id);
+                            setShowCloseModal(true);
+                            setMenuOpenId(null);
+                          }}
+                        >
+                          Close Deal
+                        </button>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       {selectedDealToEdit && (
         <EditDealComponent
